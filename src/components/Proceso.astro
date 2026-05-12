@@ -1,0 +1,176 @@
+---
+const pasos = [
+  {
+    n: 1,
+    title: "Escribinos por WhatsApp",
+    desc: "Contanos qué necesitás. Si es reparación, mandanos fotos y el modelo del equipo.",
+  },
+  {
+    n: 2,
+    title: "Te pasamos un estimativo",
+    desc: "Antes de confirmar nada, te decimos el costo aproximado del trabajo.",
+  },
+  {
+    n: 3,
+    title: "Coordinamos la visita",
+    desc: "Acordamos el día y horario que mejor te quede. Visita en 24 a 48 horas.",
+  },
+  {
+    n: 4,
+    title: "El trabajo y la garantía",
+    desc: "Resolvemos en esa misma visita y te entregamos factura con garantía incluida.",
+  },
+];
+---
+
+<section class="proceso" id="proceso">
+  <div class="inner">
+
+    <div class="header">
+      <span class="eyebrow">¿Cómo funciona?</span>
+      <h2>Simple y sin vueltas</h2>
+      <p class="sec-sub">Coordinamos todo por WhatsApp para que no tengas que moverte.</p>
+    </div>
+
+    <ol class="steps" role="list">
+      {pasos.map((paso) => (
+        <li class={`step ${paso.n === 1 ? "step--first" : ""}`}>
+          <div class="step-num" aria-hidden="true">{paso.n}</div>
+          <div class="step-body">
+            <strong class="step-title">{paso.title}</strong>
+            <p class="step-desc">{paso.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+  </div>
+</section>
+
+<style>
+  .proceso {
+    background: #F8F8F8;
+    padding: 72px 24px 80px;
+    border-top: 1px solid #eee;
+  }
+
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .sec-sub {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  /* Steps */
+  .steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    position: relative;
+  }
+
+  /* Línea conectora horizontal — solo desktop */
+  @media (min-width: 720px) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: calc(12.5% + 16px);
+      right: calc(12.5% + 16px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--brand), rgba(255,123,3,0.2));
+    }
+  }
+
+  /* Step individual */
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+  }
+
+  /* Línea vertical mobile entre steps */
+  @media (max-width: 719px) {
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 56px;
+      left: 50%;
+      width: 1px;
+      height: calc(100% - 24px);
+      background: linear-gradient(to bottom, var(--brand), rgba(255,123,3,0.1));
+    }
+  }
+
+  /* Número */
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+    background: #fff;
+    border: 2px solid var(--brand);
+    color: var(--brand);
+  }
+  .step--first .step-num {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  .step-body { max-width: 200px; }
+
+  .step-title {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 8px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+</style>

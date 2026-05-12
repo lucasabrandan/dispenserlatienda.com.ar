@@ -1,0 +1,109 @@
+---
+const items = [
+  {
+    title: "CABA y AMBA",
+    sub: "Vamos a tu empresa o domicilio",
+    icon: `<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>`,
+  },
+  {
+    title: "Visita en 24-48 h",
+    sub: "Lunes a sábado",
+    icon: `<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>`,
+  },
+  {
+    title: "Empresas de todos los rubros",
+    sub: "Oficinas, consultorios, industrias",
+    icon: `<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>`,
+  },
+  {
+    title: "Garantía incluida",
+    sub: "90 días en reparaciones y limpiezas",
+    icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+  },
+];
+---
+
+<div class="trustbar">
+  <div class="trustbar-inner">
+    {items.map((item) => (
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round"
+               set:html={item.icon} />
+        </div>
+        <span class="trust-title">{item.title}</span>
+        <span class="trust-sub">{item.sub}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .trustbar {
+    background: #0f0f0f;
+    border-top: 1px solid rgba(255, 123, 3, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0 20px;
+  }
+
+  .trustbar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .trustbar-inner { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    padding: 24px 16px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+  }
+
+  /* Grid 2 cols mobile */
+  .trust-item:nth-child(2n)  { border-right: none; }
+  .trust-item:nth-child(3),
+  .trust-item:nth-child(4)   { border-bottom: none; }
+
+  /* Grid 4 cols desktop */
+  @media (min-width: 640px) {
+    .trust-item                { border-bottom: none; }
+    .trust-item:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.05); }
+    .trust-item:last-child     { border-right: none; }
+  }
+
+  .trust-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 123, 3, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand);
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
+
+  .trust-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .trust-sub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.5;
+  }
+</style>

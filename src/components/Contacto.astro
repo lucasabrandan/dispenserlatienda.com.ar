@@ -1,0 +1,278 @@
+---
+const WA = "https://wa.me/5491166082608";
+---
+
+<section class="contacto" id="contacto">
+  <div class="inner">
+    <div class="layout">
+
+      <!-- Info -->
+      <div class="info">
+        <span class="eyebrow">Contacto</span>
+        <h2>¿Tenés un dispenser<br>con <em>problemas</em>?</h2>
+        <p class="lead">Completá el formulario y te abrimos WhatsApp con el mensaje ya armado. Sin esperas, sin llamadas.</p>
+
+        <ul class="contact-list" role="list">
+          <li class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <strong>Cobertura</strong>
+              <span>CABA y AMBA</span>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <strong>Horario</strong>
+              <span>Lunes a sábado · Respuesta inmediata</span>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <strong>Email</strong>
+              <span>info@dispenserlatienda.com.ar</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Formulario -->
+      <form class="form-card" id="contact-form" novalidate>
+        <div class="form-row">
+          <label for="nombre">Tu nombre o empresa</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Consultorio López" autocomplete="name" />
+        </div>
+        <div class="form-row">
+          <label for="servicio">¿Qué necesitás?</label>
+          <select id="servicio" name="servicio">
+            <option value="" disabled selected>Seleccioná un servicio</option>
+            <option value="Limpieza y cambio de filtro">Limpieza y cambio de filtro</option>
+            <option value="Reparación de dispenser">Reparación de dispenser</option>
+            <option value="Consulta general">Consulta general</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="mensaje">Contanos más (opcional)</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Describí brevemente el problema o la consulta..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+            <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+          </svg>
+          Enviar por WhatsApp
+        </button>
+        <p class="form-note">Al enviar se abre WhatsApp con tu consulta lista para mandar.</p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var nombre   = form.nombre.value.trim();
+      var servicio = form.servicio.value;
+      var mensaje  = form.mensaje.value.trim();
+
+      var texto = 'Hola, vengo de la web.';
+      if (nombre)   texto += ' Soy ' + nombre + '.';
+      if (servicio) texto += ' Necesito: ' + servicio + '.';
+      if (mensaje)  texto += ' ' + mensaje;
+
+      var url = 'https://wa.me/5491166082608?text=' + encodeURIComponent(texto);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  });
+</script>
+
+<style>
+  .contacto {
+    background: #111;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contacto::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(255,123,3,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  @media (min-width: 720px) {
+    .layout { grid-template-columns: 1fr 1.2fr; align-items: start; }
+  }
+
+  /* Info */
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  h2 em {
+    font-style: normal;
+    color: var(--brand);
+  }
+  .lead {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    flex-shrink: 0;
+  }
+  .contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+  .contact-text strong {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Formulario */
+  .form-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-row label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #fff;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .form-row input::placeholder,
+  .form-row textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-row select { color: rgba(255,255,255,0.6); }
+  .form-row select option { background: #1a1a1a; color: #fff; }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus { border-color: var(--brand); }
+  .form-row textarea { resize: none; height: 100px; }
+
+  .btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-submit:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+
+  .form-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+  }
+</style>

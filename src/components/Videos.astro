@@ -1,0 +1,345 @@
+---
+const videos = [
+  {
+    src:    "/videos/caso2.mp4",
+    poster: "/videos/posters/caso2.png",
+    title:  "Cambio de filtro y mantenimiento",
+    sub:    "Agua con mal sabor → limpia y segura",
+  },
+  {
+    src:    "/videos/caso1.mp4",
+    poster: "/videos/posters/caso1.png",
+    title:  "Limpieza completa de dispenser",
+    sub:    "Tanque, conductos y sistema higienizados",
+  },
+  {
+    src:    "/videos/caso3.mp4",
+    poster: "/videos/posters/caso3.png",
+    title:  "Antes y después: limpieza profunda",
+    sub:    "Dispenser higienizado de cero",
+  },
+];
+
+const tiktoks = [
+  "7634537992375373064",
+  "7634257452145347858",
+  "7621383034373278994",
+];
+---
+
+<section class="videos" id="trabajos">
+  <div class="inner">
+
+    <div class="header">
+      <span class="eyebrow">Trabajos reales</span>
+      <h2>Lo que hacemos,<br>en video</h2>
+      <p class="sec-sub">Antes de cada trabajo, grabamos. Mirá lo que encontramos.</p>
+    </div>
+
+    <div class="carousel-wrap">
+      <button class="arrow arrow-prev" aria-label="Anterior" data-dir="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button class="arrow arrow-next" aria-label="Siguiente" data-dir="1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    <div class="grid" id="vid-grid">
+      {videos.map((v) => (
+        <div class="video-card" data-card>
+          <video
+            src={v.src}
+            poster={v.poster}
+            preload="none"
+            playsinline
+            aria-label={v.title}
+          />
+          <button class="play-overlay" data-play aria-label={`Reproducir: ${v.title}`}>
+            <span class="play-circle" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </span>
+          </button>
+          <div class="caption" aria-hidden="true">
+            <span class="caption-title">{v.title}</span>
+            <span class="caption-sub">{v.sub}</span>
+          </div>
+        </div>
+      ))}
+      {tiktoks.map((id) => (
+        <div class="tt-wrap">
+          <blockquote
+            class="tiktok-embed"
+            cite={`https://www.tiktok.com/@dispenserlatienda/video/${id}`}
+            data-video-id={id}
+            data-embed-from="embed_page"
+          >
+            <section></section>
+          </blockquote>
+        </div>
+      ))}
+    </div>
+    </div>
+
+    <div class="tiktok-cta">
+      <a
+        href="https://www.tiktok.com/@dispenserlatienda"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-tiktok"
+        aria-label="Ver más trabajos en TikTok"
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+        </svg>
+        Ver más en TikTok
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-card]').forEach(function (card) {
+      var video   = card.querySelector('video');
+      var btn     = card.querySelector('[data-play]');
+      var caption = card.querySelector('.caption');
+
+      btn.addEventListener('click', function () {
+        btn.style.display     = 'none';
+        caption.style.display = 'none';
+        video.controls = true;
+        video.play();
+      });
+
+      video.addEventListener('pause', function () {
+        if (!video.ended) {
+          btn.style.display     = 'flex';
+          caption.style.display = 'flex';
+          video.controls = false;
+        }
+      });
+    });
+  });
+</script>
+
+<script async src="https://www.tiktok.com/embed.js" is:inline></script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var grid = document.getElementById('vid-grid');
+    document.querySelectorAll('.arrow').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var dir = parseInt(btn.getAttribute('data-dir'));
+        grid.scrollBy({ left: dir * 294, behavior: 'smooth' });
+      });
+    });
+  });
+</script>
+
+<style>
+  .videos {
+    background: #111;
+    padding: 72px 0 80px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 24px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .sec-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  /* Scroll horizontal — sangra hasta el borde para mostrar el corte */
+  .grid {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 24px 4px;
+    scrollbar-width: none;
+  }
+  .grid::-webkit-scrollbar { display: none; }
+
+  /* Card mp4 */
+  .video-card {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    flex: 0 0 280px;
+    height: 480px;
+    scroll-snap-align: start;
+  }
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  video:fullscreen,
+  video:-webkit-full-screen {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+
+  /* Play overlay */
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .play-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,123,3,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(255,123,3,0.4);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .play-overlay:hover .play-circle {
+    transform: scale(1.1);
+    background: var(--brand);
+  }
+  .play-circle svg { margin-left: 4px; }
+
+  /* Caption */
+  .caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 48px 16px 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .caption-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+  }
+  .caption-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .tt-wrap {
+    flex: 0 0 280px;
+    height: 480px;
+    scroll-snap-align: start;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  .tt-wrap .tiktok-embed {
+    margin: 0 !important;
+    min-width: unset !important;
+    max-width: 100% !important;
+    width: 280px !important;
+  }
+
+  /* Wrapper carousel con flechas */
+  .carousel-wrap {
+    position: relative;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(255,123,3,0.4);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .arrow:hover {
+    background: var(--brand-d);
+    transform: translateY(-50%) scale(1.08);
+  }
+  .arrow-prev { left: 4px; }
+  .arrow-next { right: 4px; }
+
+  /* CTA TikTok */
+  .tiktok-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+    padding: 0 24px;
+  }
+  .btn-tiktok {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-tiktok:hover {
+    border-color: #fff;
+    color: #fff;
+  }
+</style>

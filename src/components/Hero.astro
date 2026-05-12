@@ -1,0 +1,372 @@
+---
+const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo de la web. Quiero coordinar una visita técnica.");
+---
+
+<section class="hero" id="inicio">
+
+  <!-- Decoración de fondo -->
+  <div class="glow-orange" aria-hidden="true"></div>
+  <div class="glow-red"    aria-hidden="true"></div>
+  <div class="line-l"      aria-hidden="true"></div>
+  <div class="line-r"      aria-hidden="true"></div>
+
+  <div class="hero-inner">
+
+    <!-- Eyebrow -->
+    <div class="eyebrow">
+      <span class="pulse" aria-hidden="true"></span>
+      Servicio técnico de dispensers · CABA y AMBA
+    </div>
+
+    <!-- Título -->
+    <h1>
+      Reparación y limpieza de<br />
+      dispensers <em>a domicilio</em>
+    </h1>
+
+    <!-- Descripción -->
+    <p class="lead">
+      Servicio técnico de dispensers a domicilio para oficinas, consultorios,
+      industrias y particulares. Reparación, limpieza y mantenimiento con
+      garantía incluida.
+    </p>
+
+    <!-- Badge WhatsApp IA -->
+    <div class="wa-badge-wrap">
+      <div class="wa-badge">
+        <span class="wa-dot" aria-hidden="true"></span>
+        <strong>Respondemos al instante</strong>
+        <span class="sep" aria-hidden="true">·</span>
+        Visita en 24 a 48 horas
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="hero-cta">
+      <a href={WA} class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+          <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+        </svg>
+        Coordinar visita
+      </a>
+      <a href="#servicios" class="btn-ghost">Ver servicios</a>
+    </div>
+    <p class="cta-note">Sin turno previo · Visita en 24 a 48 hs</p>
+
+    <!-- Stats -->
+    <div class="stats-bar" role="list" aria-label="Nuestros números">
+      <div class="stat" role="listitem">
+        <span class="stat-num">⭐ 4.9</span>
+        <span class="stat-lbl">Google Business</span>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-num">40</span>
+        <span class="stat-lbl">Reseñas verificadas</span>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-num">7+</span>
+        <span class="stat-lbl">Años de experiencia</span>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-num">24-48h</span>
+        <span class="stat-lbl">Para la visita técnica</span>
+      </div>
+    </div>
+
+    <!-- Chips de reseñas -->
+    <div class="review-chips">
+      <div class="chip">
+        <div class="chip-stars" aria-label="5 estrellas">★★★★★</div>
+        <p class="chip-text">"Como hace 5 años seguimos eligiendo LA TIENDA. Trabajo prolijo, buena atención y costos accesibles."</p>
+        <span class="chip-author">Mir viru · Cliente desde hace 5 años</span>
+      </div>
+      <div class="chip">
+        <div class="chip-stars" aria-label="5 estrellas">★★★★★</div>
+        <p class="chip-text">"Urgencia un sábado, en un par de horas pasaron a revisarlo. Encontraron el problema y lo solucionaron."</p>
+        <span class="chip-author">Braian Gonzalez · Hace 2 meses</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ===== Sección ===== */
+  .hero {
+    background: #0f0f0f;
+    padding: 70px 20px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (min-width: 640px) {
+    .hero { padding: 100px 40px 90px; }
+  }
+
+  /* Borde superior naranja */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 5%, var(--brand) 50%, transparent 95%);
+  }
+  /* Borde inferior sutil */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,123,3,0.3), transparent);
+  }
+
+  /* Glows de fondo */
+  .glow-orange {
+    position: absolute;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 560px;
+    background: radial-gradient(ellipse, rgba(255,123,3,0.13) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .glow-red {
+    position: absolute;
+    bottom: -80px; right: -60px;
+    width: 380px; height: 380px;
+    background: radial-gradient(ellipse, rgba(229,68,58,0.09) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Líneas decorativas — solo desktop */
+  .line-l, .line-r { display: none; }
+  @media (min-width: 768px) {
+    .line-l {
+      display: block;
+      position: absolute; top: 0; bottom: 0; left: 22%; width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,123,3,0.1), transparent);
+    }
+    .line-r {
+      display: block;
+      position: absolute; top: 0; bottom: 0; right: 22%; width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,123,3,0.1), transparent);
+    }
+  }
+
+  /* Contenedor interno */
+  .hero-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Eyebrow */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,123,3,0.12);
+    border: 1px solid rgba(255,123,3,0.22);
+    color: var(--brand);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .pulse {
+    width: 7px; height: 7px;
+    background: var(--brand);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  /* Título */
+  h1 {
+    font-size: clamp(2rem, 8vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--brand);
+  }
+
+  /* Lead */
+  .lead {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    max-width: 54ch;
+    margin: 0 auto 26px;
+  }
+
+  /* Badge WhatsApp */
+  .wa-badge-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 26px;
+  }
+  .wa-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: rgba(37,211,102,0.08);
+    border: 1px solid rgba(37,211,102,0.2);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+  }
+  .wa-badge strong { color: #25d366; }
+  .wa-dot {
+    width: 8px; height: 8px;
+    background: #25d366;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  .sep { color: rgba(255,255,255,0.2); }
+
+  /* CTAs */
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 13px;
+    box-shadow: 0 8px 24px rgba(255,123,3,0.3);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 13px 26px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.8);
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 13px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+  .cta-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 44px;
+    margin-top: 10px;
+  }
+
+  /* Stats — 2x2 en mobile, 4 columnas en desktop */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(255,123,3,0.15);
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255,123,3,0.04);
+    max-width: 620px;
+    margin: 0 auto 24px;
+    box-shadow: 0 0 40px rgba(255,123,3,0.07);
+  }
+  @media (min-width: 540px) {
+    .stats-bar { grid-template-columns: repeat(4, 1fr); }
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 12px;
+    border-right: 1px solid rgba(255,123,3,0.1);
+    border-bottom: 1px solid rgba(255,123,3,0.1);
+  }
+  /* Quitar bordes sobrantes en mobile (2 cols) */
+  .stat:nth-child(2n)   { border-right: none; }
+  .stat:nth-child(3),
+  .stat:nth-child(4)    { border-bottom: none; }
+  /* Quitar bordes sobrantes en desktop (4 cols) */
+  @media (min-width: 540px) {
+    .stat               { border-bottom: none; }
+    .stat:nth-child(2n) { border-right: 1px solid rgba(255,123,3,0.1); }
+    .stat:last-child    { border-right: none; }
+  }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--brand);
+  }
+  @media (min-width: 540px) { .stat-num { font-size: 26px; } }
+  .stat-lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* Chips de reseñas */
+  .review-chips {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 14px 18px;
+    width: 100%;
+    max-width: 310px;
+    text-align: left;
+    transition: border-color 0.2s;
+  }
+  .chip:hover { border-color: rgba(255,123,3,0.25); }
+  .chip-stars {
+    color: #FFB800;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .chip-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+  .chip-author {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+  }
+</style>

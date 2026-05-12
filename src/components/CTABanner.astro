@@ -1,0 +1,92 @@
+---
+const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, tenemos varios dispensers en la empresa. Quiero consultar por un plan de mantenimiento.");
+---
+
+<section class="cta-banner">
+  <div class="inner">
+    <div class="text">
+      <p class="cta-eyebrow">Para empresas</p>
+      <h2>¿Tenés más de un equipo?</h2>
+      <p class="cta-sub">Consultá por nuestro plan de mantenimiento para empresas y el descuento para 5 equipos o más.</p>
+    </div>
+    <a href={WA} class="btn-cta" target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+      </svg>
+      Consultar por WhatsApp
+    </a>
+  </div>
+</section>
+
+<style>
+  .cta-banner {
+    background: var(--brand);
+    padding: 56px 24px;
+  }
+
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    text-align: center;
+  }
+  @media (min-width: 720px) {
+    .inner {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cta-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.4);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .cta-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 14px 28px;
+    background: #fff;
+    color: var(--brand);
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  }
+</style>

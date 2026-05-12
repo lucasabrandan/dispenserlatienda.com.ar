@@ -1,0 +1,295 @@
+---
+const WA = "https://wa.me/5491166082608?text=";
+
+const grupos = [
+  {
+    label: "Sobre el servicio",
+    iconColor: "blue",
+    icon: `<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>`,
+    items: [
+      {
+        q: "¿En qué zonas trabajan?",
+        a: "Cubrimos toda CABA y el Gran Buenos Aires. Si tenés dudas sobre tu zona, escribinos por WhatsApp y te confirmamos en el momento.",
+      },
+      {
+        q: "¿Cuánto tarda en llegar el técnico?",
+        a: "Coordinamos la visita en 24 a 48 horas según la demanda. En casos urgentes hacemos lo posible por acelerar.",
+      },
+      {
+        q: "¿Cada cuánto conviene hacer el mantenimiento?",
+        a: "Una vez al año es suficiente para mantener el agua limpia y el equipo en buen estado. Te recomendamos no esperar más para evitar problemas mayores.",
+      },
+      {
+        q: "¿Cómo se pide el servicio?",
+        a: "Todo por WhatsApp. Nos contás qué necesitás, si es reparación nos mandás fotos del equipo, te pasamos un estimativo y coordinamos día y horario.",
+      },
+      {
+        q: "¿Atienden los sábados?",
+        a: "Sí, atendemos los sábados. Escribinos por WhatsApp y coordinamos según disponibilidad.",
+      },
+      {
+        q: "¿Emiten factura? ¿Tienen garantía?",
+        a: "Sí a los dos. Emitimos factura por todos los trabajos y damos 90 días de garantía sobre reparaciones y limpiezas.",
+      },
+    ],
+  },
+  {
+    label: "Problemas con tu dispenser",
+    iconColor: "orange",
+    icon: `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`,
+    items: [
+      {
+        q: "El agua tiene gusto u olor extraño, ¿qué puede ser?",
+        a: "Casi siempre es el filtro de carbón activado saturado o el circuito interno que necesita limpieza. Con un mantenimiento anual (limpieza + desinfección + cambio de filtro) queda resuelto.",
+        cta: "Coordinar visita",
+        msg: "Hola, el agua de mi dispenser tiene un gusto/olor extraño. Quiero coordinar una visita.",
+      },
+      {
+        q: "Sentí una descarga eléctrica o da corriente, ¿qué hago?",
+        a: "Desenchufalo de inmediato y no lo uses hasta que lo revise un técnico. Puede ser humedad interna, falla de aislación o cableado desgastado.",
+        cta: "Solicitar revisión urgente",
+        msg: "Hola, mi dispenser me está dando corriente. Necesito una revisión urgente.",
+      },
+      {
+        q: "Salió olor a quemado o humo, ¿qué hago?",
+        a: "Desenchufalo de inmediato y no lo vuelvas a encender. Puede ser sobrecalentamiento del compresor o una falla eléctrica interna. Hacemos diagnóstico completo antes de cualquier intervención.",
+        cta: "Pedir diagnóstico",
+        msg: "Hola, mi dispenser largó olor a quemado. Necesito un diagnóstico urgente.",
+      },
+      {
+        q: "Mi dispenser pierde agua, ¿por qué pasa?",
+        a: "Puede ser una unión mal sellada, el flotante interno o una pérdida del botellón. Si viene del interior del equipo, necesita revisión técnica.",
+        cta: "Agendar revisión",
+        msg: "Hola, mi dispenser está perdiendo agua. Quiero agendar una revisión.",
+      },
+      {
+        q: "No enfría, no calienta o funciona a veces sí y a veces no",
+        a: "Para el frío: verificá que la parrilla trasera tenga al menos 10 cm de ventilación. Para el calor: confirmá que el sistema esté activado. Si persiste, puede ser falla del compresor, la resistencia o el termostato.",
+        cta: "Consultar por WhatsApp",
+        msg: "Hola, mi dispenser tiene problemas para enfriar/calentar. Quiero consultarles.",
+      },
+      {
+        q: "Ya revisé todo y el problema sigue, ¿qué hago?",
+        a: "Cuando el problema es recurrente o no tiene explicación simple, lo mejor es un mantenimiento integral: limpieza interna, revisión eléctrica, cambio de filtro y prueba de funcionamiento.",
+        cta: "Contactar por WhatsApp",
+        msg: "Hola, mi dispenser sigue con problemas. Quiero coordinar un mantenimiento integral.",
+      },
+    ],
+  },
+];
+---
+
+<section class="faq" id="faq">
+  <div class="inner">
+
+    <div class="header">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Lo que más<br>nos preguntan</h2>
+      <p class="sec-sub">Preparadas para el 90% de las consultas que recibimos.</p>
+    </div>
+
+    <div class="faq-groups">
+    {grupos.map((grupo) => (
+      <div class="faq-group">
+
+        <div class="group-label">
+          <div class={`group-icon ${grupo.iconColor}`} aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 set:html={grupo.icon} />
+          </div>
+          <span class="group-title">{grupo.label}</span>
+        </div>
+
+        <div class="faq-list">
+          {grupo.items.map((item) => (
+            <details class="faq-item" name={`faq-${grupo.iconColor}`}>
+              <summary class="faq-q">
+                <span>{item.q}</span>
+                <span class="chevron" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2.5"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-body">
+                <p>{item.a}</p>
+                {item.cta && (
+                  <a
+                    href={WA + encodeURIComponent(item.msg)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="faq-btn"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                      <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+                    </svg>
+                    {item.cta}
+                  </a>
+                )}
+              </div>
+            </details>
+          ))}
+        </div>
+
+      </div>
+    ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: #fff;
+    padding: 80px 24px;
+    border-top: 1px solid #eee;
+  }
+
+  .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .faq-groups {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 860px) {
+    .faq-groups {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .sec-sub {
+    font-size: 15px;
+    color: #6b7280;
+  }
+
+  /* Grupo */
+  .faq-group {}
+
+  .group-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .group-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .group-icon.blue   { background: #EFF6FF; color: #3B82F6; }
+  .group-icon.orange { background: var(--brand-lt); color: var(--brand); }
+
+  .group-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111;
+  }
+
+  /* Acordeón */
+  .faq-list {
+    border: 1px solid #E5E7EB;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q:hover { background: #FAFAFA; }
+  .faq-item[open] .faq-q { color: var(--brand); background: #FAFAFA; }
+
+  .chevron {
+    flex-shrink: 0;
+    color: #9CA3AF;
+    transition: transform 0.25s ease;
+  }
+  .faq-item[open] .chevron { transform: rotate(180deg); color: var(--brand); }
+
+  .faq-body {
+    padding: 0 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: fadeIn 0.2s ease;
+  }
+  .faq-body p {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.75;
+  }
+
+  .faq-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 9px;
+    align-self: flex-start;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .faq-btn:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

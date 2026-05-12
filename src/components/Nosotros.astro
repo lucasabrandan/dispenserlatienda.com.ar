@@ -1,0 +1,201 @@
+---
+const ventajas = [
+  {
+    title: "Vamos donde estás",
+    sub:   "CABA y AMBA, a domicilio",
+    icon:  `<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>`,
+  },
+  {
+    title: "Precios accesibles",
+    sub:   "Tarifas claras y acordes al trabajo, sin costos ocultos",
+    icon:  `<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`,
+  },
+  {
+    title: "Atención personalizada",
+    sub:   "Técnicos especializados en cada visita, sin intermediarios",
+    icon:  `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+  },
+];
+
+const stats = [
+  { num: "2018",   lbl: "Año en que empezamos" },
+  { num: "7+",     lbl: "Años de experiencia en el rubro" },
+  { num: "⭐ 4.9", lbl: "Promedio en Google Business · 39 reseñas" },
+];
+---
+
+<section class="nosotros" id="nosotros">
+  <div class="inner">
+    <div class="top-block">
+
+      <!-- Izquierda: título + ventajas -->
+      <div class="top-left">
+        <span class="eyebrow">Quiénes somos</span>
+        <h2>Vamos donde<br><em>estás vos.</em></h2>
+        <p class="lead">
+          No perdés tiempo trasladando el equipo ni esperando en un local.
+          Coordinamos por WhatsApp y nuestros técnicos van a tu empresa,
+          oficina o domicilio cuando más lo necesitás.
+        </p>
+        <ul class="ventajas" role="list">
+          {ventajas.map((v) => (
+            <li class="ventaja">
+              <div class="ventaja-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     set:html={v.icon} />
+              </div>
+              <div class="ventaja-text">
+                <strong>{v.title}</strong>
+                <span>{v.sub}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Derecha: stats -->
+      <div class="stats-panel" aria-label="Nuestros números">
+        {stats.map((s, i) => (
+          <>
+            <div class="stat-big">
+              <span class="stat-num">{s.num}</span>
+              <span class="stat-lbl">{s.lbl}</span>
+            </div>
+            {i < stats.length - 1 && <div class="stat-divider" aria-hidden="true" />}
+          </>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .nosotros {
+    background: #F8F8F8;
+    padding: 80px 24px;
+    border-top: 1px solid #eee;
+  }
+
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ── Top block ── */
+  .top-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 720px) {
+    .top-block { grid-template-columns: 1fr 1fr; align-items: center; }
+  }
+
+  /* ── Izquierda ── */
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  h2 em {
+    font-style: normal;
+    color: var(--brand);
+  }
+  .lead {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* Ventajas */
+  .ventajas {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .ventaja {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ventaja-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--brand-lt);
+    color: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ventaja-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 1px;
+  }
+  .ventaja-text span {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  /* ── Stats panel ── */
+  .stats-panel {
+    background: #111;
+    border-radius: 20px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats-panel::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(ellipse, rgba(255,123,3,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .stat-big {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-num {
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+  }
+  .stat-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+  }
+</style>

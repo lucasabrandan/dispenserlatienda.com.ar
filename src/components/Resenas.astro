@@ -1,0 +1,258 @@
+---
+const featured = {
+  tag:    "5 años como cliente",
+  text:   "\"Como hace 5 años seguimos eligiendo LA TIENDA. Trabajo prolijo, buena atención y costos accesibles.\"",
+  author: "Mir viru",
+};
+
+const secundarias = [
+  {
+    text:   "\"Tuvimos una urgencia un sábado y en un par de horas pasaron a revisarlo. Encontraron el problema y lo solucionaron.\"",
+    author: "Braian Gonzalez · Urgencia fin de semana",
+  },
+  {
+    text:   "\"Servicio excelente, sumamente paciente, atento y dedicado al máximo. Los precios son totalmente accesibles.\"",
+    author: "Maria Luz Arispe · Local Guide",
+  },
+  {
+    text:   "\"Trabajo excepcional: profesional, detallista. Limpió a fondo todo el circuito y dejó el equipo como nuevo.\"",
+    author: "Docencia Udaondo",
+  },
+];
+---
+
+<section class="resenas" id="resenas">
+  <div class="inner">
+
+    <div class="header">
+      <span class="eyebrow">Reseñas</span>
+      <div class="google-badge" aria-label="4.9 de 5 estrellas · 40 reseñas en Google Business">
+        <span class="g-score">4.9</span>
+        <div class="g-info">
+          <span class="g-stars" aria-hidden="true">★★★★★</span>
+          <span class="g-count">40 reseñas en Google Business</span>
+        </div>
+      </div>
+      <h2>Lo que dicen<br>nuestros clientes</h2>
+    </div>
+
+    <div class="grid">
+
+      <!-- Card destacada -->
+      <div class="card-featured">
+        <span class="feat-tag">{featured.tag}</span>
+        <div class="feat-stars" aria-label="5 estrellas">★★★★★</div>
+        <p class="feat-text">{featured.text}</p>
+        <span class="feat-author">{featured.author}</span>
+      </div>
+
+      <!-- Cards secundarias -->
+      <div class="secondary-col">
+        {secundarias.map((r) => (
+          <div class="card-sm">
+            <div class="sm-stars" aria-label="5 estrellas">★★★★★</div>
+            <p class="sm-text">{r.text}</p>
+            <span class="sm-author">{r.author}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <div class="google-cta">
+      <a
+        href="https://share.google/DoOJd5YC6DhjIgZ2D"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-google"
+        aria-label="Ver todas las reseñas en Google Business"
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 11h8.533c.044.385.067.78.067 1.184 0 2.734-.98 5.036-2.678 6.6C16.42 20.272 14.36 21 12 21c-4.97 0-9-4.03-9-9s4.03-9 9-9c2.395 0 4.404.868 5.96 2.288l-2.36 2.36C14.688 6.765 13.415 6.3 12 6.3 9.134 6.3 6.8 8.634 6.8 11.5S9.134 16.7 12 16.7c2.442 0 4.188-1.318 4.76-3.2H12v-2.5z"/>
+        </svg>
+        Ver todas las reseñas en Google
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .resenas {
+    background: #F8F8F8;
+    padding: 80px 24px;
+    border-top: 1px solid #eee;
+  }
+
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  .google-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 999px;
+    padding: 8px 18px;
+    margin-bottom: 20px;
+  }
+  .g-score {
+    font-size: 20px;
+    font-weight: 900;
+    color: #111;
+  }
+  .g-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .g-stars {
+    color: #FFB800;
+    font-size: 13px;
+  }
+  .g-count {
+    font-size: 11px;
+    color: #9CA3AF;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 720px) {
+    .grid { grid-template-columns: 1.3fr 1fr; align-items: start; }
+  }
+
+  /* Card destacada */
+  .card-featured {
+    background: #111;
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-featured::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(ellipse, rgba(255,123,3,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .feat-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--brand);
+    background: rgba(255,123,3,0.12);
+    border: 1px solid rgba(255,123,3,0.2);
+    padding: 4px 10px;
+    border-radius: 999px;
+    align-self: flex-start;
+  }
+  .feat-stars {
+    color: #FFB800;
+    font-size: 16px;
+  }
+  .feat-text {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    font-style: italic;
+    flex: 1;
+  }
+  .feat-author {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* Columna secundaria */
+  .secondary-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card-sm {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .card-sm:hover { border-color: rgba(255,123,3,0.3); }
+
+  .sm-stars {
+    color: #FFB800;
+    font-size: 12px;
+  }
+  .sm-text {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.65;
+    font-style: italic;
+  }
+  .sm-author {
+    font-size: 11px;
+    font-weight: 700;
+    color: #9CA3AF;
+  }
+
+  /* CTA Google */
+  .google-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+  }
+  .btn-google {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 22px;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-google:hover {
+    border-color: #111;
+    color: #111;
+  }
+</style>
