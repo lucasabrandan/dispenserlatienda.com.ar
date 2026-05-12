@@ -1,5 +1,15 @@
 ---
-const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, tenemos varios dispensers en la empresa. Quiero consultar por un plan de mantenimiento.");
+const subject = encodeURIComponent("Solicitud de cotización – Dispenser La Tienda");
+const body = encodeURIComponent(
+  "Hola, me comunico desde la web para solicitar una cotización.\n\n" +
+  "Nombre o empresa: \n" +
+  "Dirección / Ubicación de los equipos: \n" +
+  "Cantidad de equipos: \n" +
+  "Marca y modelo: \n" +
+  "Diagnóstico / problema: \n\n" +
+  "Quedo a la espera, gracias."
+);
+const MAIL = `mailto:info@dispenserlatienda.com.ar?subject=${subject}&body=${body}`;
 ---
 
 <section class="cta-banner">
@@ -9,11 +19,11 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, tenem
       <h2>¿Tenés más de un equipo?</h2>
       <p class="cta-sub">Consultá por nuestro plan de mantenimiento para empresas y el descuento para 5 equipos o más.</p>
     </div>
-    <a href={WA} class="btn-cta" target="_blank" rel="noopener noreferrer">
-      <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-        <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+    <a href={MAIL} class="btn-cta">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
       </svg>
-      Consultar por WhatsApp
+      Solicitar cotización por email
     </a>
   </div>
 </section>
