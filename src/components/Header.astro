@@ -1,0 +1,213 @@
+---
+const NAV = [
+  { label: "Servicios",  href: "#servicios"  },
+  { label: "Equipos",    href: "#equipos"    },
+  { label: "Nosotros",   href: "#nosotros"   },
+  { label: "Reseñas",    href: "#resenas"    },
+  { label: "FAQ",        href: "#faq"        },
+  { label: "Contacto",   href: "#contacto"   },
+];
+
+const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo de la web.");
+---
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <!-- Logo + nombre -->
+    <a href="/" class="brand" aria-label="Dispenser La Tienda — inicio">
+      <img src="/logo.png" alt="Logo Dispenser La Tienda" width="34" height="34" />
+      <span class="brand-name">Dispenser La Tienda</span>
+    </a>
+
+    <!-- Navegación desktop -->
+    <nav aria-label="Navegación principal">
+      {NAV.map(({ label, href }) => (
+        <a href={href}>{label}</a>
+      ))}
+    </nav>
+
+    <!-- CTA WhatsApp -->
+    <a href={WA} class="btn-wa" target="_blank" rel="noopener noreferrer">
+      <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+      </svg>
+      WhatsApp
+    </a>
+
+    <!-- Hamburger mobile -->
+    <button class="hamburger" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+
+  <!-- Menú mobile -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    {NAV.map(({ label, href }) => (
+      <a href={href} class="mobile-link">{label}</a>
+    ))}
+    <a href={WA} class="btn-wa mobile-wa" target="_blank" rel="noopener noreferrer">
+      💬 WhatsApp
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(26, 26, 26, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 13px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  /* Marca */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .brand img {
+    height: 34px;
+    width: auto;
+  }
+  .brand-name {
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  /* Nav desktop */
+  nav {
+    display: none;
+    gap: 22px;
+  }
+  @media (min-width: 900px) {
+    nav { display: flex; }
+  }
+  nav a {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--brand); }
+
+  /* Botón WhatsApp */
+  .btn-wa {
+    display: none;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(255, 123, 3, 0.3);
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  @media (min-width: 640px) {
+    .btn-wa { display: inline-flex; }
+  }
+  .btn-wa:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  @media (min-width: 900px) {
+    .hamburger { display: none; }
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Menú mobile */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 12px 24px 20px;
+    border-top: 1px solid var(--dark-border);
+    gap: 4px;
+  }
+  .mobile-menu.open { display: flex; }
+  @media (min-width: 900px) {
+    .mobile-menu { display: none !important; }
+  }
+  .mobile-link {
+    padding: 10px 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
+    border-radius: 10px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .mobile-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--brand);
+  }
+  .mobile-wa {
+    margin-top: 8px;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 12px;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu   = document.getElementById("mobile-menu");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("open");
+    toggle.classList.toggle("open", isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    menu?.setAttribute("aria-hidden", String(!isOpen));
+  });
+
+  // Cerrar al hacer click en un link
+  menu?.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("open");
+      toggle?.classList.remove("open");
+      toggle?.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-hidden", "true");
+    });
+  });
+</script>

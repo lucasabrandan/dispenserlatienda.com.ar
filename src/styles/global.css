@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+/* ===== Variables de marca ===== */
+:root {
+  --brand:      #FF7B03;
+  --brand-d:    #e36a00;
+  --brand-lt:   #FFF3E0;
+  --dark:       #1a1a1a;
+  --dark-2:     #222222;
+  --dark-3:     #2c2c2c;
+  --dark-border: rgba(255, 255, 255, 0.08);
+  --bg:         #F8F8F8;
+  --surface:    #FFFFFF;
+  --border:     #E5E7EB;
+  --text:       #111111;
+  --muted:      #6b7280;
+  --shadow:     0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg:  0 20px 48px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Base ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Reveal animations ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: opacity, transform;
+}
+.reveal[data-reveal="left"]  { transform: translateX(-20px); }
+.reveal[data-reveal="right"] { transform: translateX(20px); }
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}

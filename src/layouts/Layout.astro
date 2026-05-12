@@ -1,0 +1,132 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Servicio Técnico Dispensers CABA y GBA | Dispenser La Tienda",
+  description = "Reparación, mantenimiento y limpieza de dispensers de agua en CABA y GBA. Venta de equipos nuevos con garantía de 1 año. Respuesta en 24hs. 011 6608-2608.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://dispenserlatienda.com.ar" />
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url"         content="https://dispenserlatienda.com.ar" />
+    <meta property="og:type"        content="website" />
+    <meta property="og:locale"      content="es_AR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Dispenser La Tienda",
+        "description": "Servicio técnico y venta de dispensers de agua a domicilio en CABA y GBA.",
+        "slogan": "Innovación en cada servicio.",
+        "telephone": "+54-9-11-6608-2608",
+        "email": "dispenserlatienda@gmail.com",
+        "url": "https://dispenserlatienda.com.ar",
+        "areaServed": ["Ciudad Autónoma de Buenos Aires", "Gran Buenos Aires"],
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "sameAs": [
+          "https://www.tiktok.com/@dispenserlatienda",
+          "https://www.instagram.com/dispenserlatienda/"
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- WhatsApp FAB -->
+    <a
+      href="https://wa.me/5491166082608?text=Hola%2C%20vengo%20de%20la%20web."
+      class="wa-fab"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <svg viewBox="0 0 32 32" width="26" height="26" fill="currentColor" aria-hidden="true">
+        <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
+      </svg>
+    </a>
+
+    <!-- Reveal animation observer -->
+    <script>
+      const els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach(el => el.classList.add("is-visible"));
+      } else {
+        const io = new IntersectionObserver(
+          entries => entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add("is-visible");
+            else e.target.classList.remove("is-visible");
+          }),
+          { threshold: 0.15 }
+        );
+        els.forEach(el => io.observe(el));
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    width: 56px;
+    height: 56px;
+    background: #25d366;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45);
+    transition: transform 0.2s;
+  }
+  .wa-fab:hover {
+    transform: scale(1.08) translateY(-2px);
+  }
+</style>
