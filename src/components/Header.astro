@@ -114,9 +114,6 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
     transform: translateY(-1px);
   }
 
-  /* En mobile ocultamos el texto y dejamos solo el ícono */
-  .wa-label { display: none; }
-  @media (min-width: 480px) {
-    .wa-label { display: inline; }
-  }
+  /* El texto siempre visible */
+  .wa-label { display: inline; }
 </style>
