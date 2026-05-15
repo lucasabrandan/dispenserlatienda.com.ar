@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dispenserlatienda.com.ar/sitemap-index.xml

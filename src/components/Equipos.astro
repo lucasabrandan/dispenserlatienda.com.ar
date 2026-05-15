@@ -1,0 +1,1466 @@
+---
+const WA_NUMBER = "5491166082608";
+const WA = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+
+type Spec = { k: string; v: string };
+
+type Producto = {
+  id: string;
+  nombre: string;
+  subtitulo: string;
+  descripcion: string;
+  imagenes: string[];           // Imágenes versión botellón (default si hasToggle)
+  imagenesRed?: string[];       // Imágenes versión a red de agua (opcional)
+  imagenAlt: string;
+  bullets: string[];
+  specs: Spec[];
+  hasToggle: boolean;
+  badge?: string;
+  infoFijo?: boolean;
+  origen: "nacional" | "premium";
+  waBotellon?: string;
+  waRed?: string;
+  waUnico?: string;
+};
+
+const dispensers: Producto[] = [
+  {
+    id: "classic-fc",
+    nombre: "Classic FC",
+    subtitulo: "Dispenser frío/calor de pie · botellón de 20 L",
+    descripcion: "Agua fría a 5°C y caliente a 85°C en cualquier momento. Compresor real para enfriado eficiente, ideal para oficinas, comercios y hogares.",
+    imagenes: ["/equipos/DIS-BLANCO-FRENTE-BIDON.webp", "/equipos/DIS-BLANCO-LATERAL-BIDON.webp"],
+    imagenesRed: ["/equipos/DIS-BLANCO-FRENTE.webp", "/equipos/DIS-BLANCO-LATERAL.webp"],
+    imagenAlt: "Dispenser de agua frío calor blanco para botellón de 20 litros",
+    bullets: [
+      "Compresor real (no termoeléctrico) — enfría 10 L/h a 5°C",
+      "Agua caliente lista al instante — 8 L/h a 85°C, ideal para mate y café",
+      "Industria argentina · 12 meses de garantía de fábrica",
+      "Bandeja antigoteo removible para limpieza fácil",
+    ],
+    specs: [
+      { k: "Tipo de carga", v: "Botellón superior 20 L" },
+      { k: "Canillas", v: "2 (fría + caliente)" },
+      { k: "Capacidad fría", v: "10 L/h a 5°C" },
+      { k: "Capacidad caliente", v: "8 L/h a 85°C" },
+      { k: "Sistema de frío", v: "Compresor con protector térmico" },
+      { k: "Voltaje", v: "220V" },
+      { k: "Medidas", v: "93 × 31 × 29 cm" },
+      { k: "Peso", v: "11 kg" },
+      { k: "Color", v: "Blanco" },
+      { k: "Garantía", v: "12 meses de fábrica" },
+    ],
+    hasToggle: true,
+    origen: "nacional",
+    waBotellon: "Hola, quiero cotizar el dispenser Classic FC.",
+    waRed: "Hola, quiero cotizar el dispenser Classic FC versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+  },
+  {
+    id: "compact",
+    nombre: "Compact",
+    subtitulo: "Dispenser frío/calor de mesa · botellón de 20 L",
+    descripcion: "Toda la potencia de un dispenser de pie en formato compacto. Ideal para oficinas chicas, recepciones, kitchenettes y hogares con poco espacio.",
+    imagenes: ["/equipos/DIS-MINI-FRENTE-BIDON.webp", "/equipos/DIS-MINI-LATERAL-BIDON.webp"],
+    imagenesRed: ["/equipos/DIS-MINI-FRENTE.webp", "/equipos/DIS-MINI-LATERAL.webp"],
+    imagenAlt: "Dispenser de agua frío calor compacto de mesa para botellón",
+    bullets: [
+      "Mayor rendimiento de frío que el de pie — 12 L/h a 5°C",
+      "Agua caliente para mate — 8 L/h a 85°C",
+      "Industria argentina · 12 meses de garantía de fábrica",
+      "Portavasos integrados y canillas antigoteo",
+    ],
+    specs: [
+      { k: "Tipo", v: "De mesa para botellón superior 20 L" },
+      { k: "Canillas", v: "2 antigoteo (fría + caliente)" },
+      { k: "Capacidad fría", v: "12 L/h a 5°C" },
+      { k: "Capacidad caliente", v: "8 L/h a 85°C" },
+      { k: "Consumo", v: "550W" },
+      { k: "Voltaje", v: "220V" },
+      { k: "Medidas", v: "49 × 31 × 29 cm" },
+      { k: "Peso", v: "11 kg" },
+      { k: "Color", v: "Blanco" },
+      { k: "Garantía", v: "12 meses de fábrica" },
+    ],
+    hasToggle: true,
+    origen: "nacional",
+    waBotellon: "Hola, quiero cotizar el dispenser Compact.",
+    waRed: "Hola, quiero cotizar el dispenser Compact versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+  },
+  {
+    id: "classic-digital",
+    nombre: "Classic Digital",
+    subtitulo: "Dispenser frío/calor monocasco · diseño moderno para oficina",
+    descripcion: "Diseño monocasco con cuerpo de una sola pieza, look limpio y moderno con panel digital. Pensado para oficinas y espacios donde el equipo se ve.",
+    imagenes: ["/equipos/DIS-BN-FRENTE.webp", "/equipos/DIS-BN-LATERAL.webp"],
+    imagenAlt: "Dispenser de agua frío calor monocasco con panel digital",
+    bullets: [
+      "Diseño monocasco — cuerpo de una sola pieza, líneas limpias",
+      "Panel digital con indicadores de temperatura",
+      "Marca líder con respaldo de fábrica · 12 meses de garantía",
+      "Frío y caliente con regulación precisa",
+    ],
+    specs: [
+      { k: "Tipo de carga", v: "Botellón superior 20 L" },
+      { k: "Canillas", v: "Frío + caliente" },
+      { k: "Panel", v: "Digital con indicadores" },
+      { k: "Voltaje", v: "220V" },
+      { k: "Peso", v: "10 kg" },
+      { k: "Color", v: "Blanco con detalles negros" },
+      { k: "Garantía", v: "12 meses de fábrica" },
+    ],
+    hasToggle: true,
+    origen: "premium",
+    waBotellon: "Hola, quiero cotizar el dispenser Classic Digital.",
+    waRed: "Hola, quiero cotizar el dispenser Classic Digital versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+  },
+  {
+    id: "pro-trio",
+    nombre: "Pro Trio",
+    subtitulo: "Dispenser platinado · 3 temperaturas · botellón 20 L",
+    descripcion: "Frío, ambiente y caliente en un solo equipo. Para quien quiere agua a temperatura natural sin esperar y mantener la opción de fría o caliente al instante.",
+    imagenes: ["/equipos/DIS-PLAT3C-FRENTE.webp", "/equipos/DIS-PLAT3C-LATERAL.webp"],
+    imagenAlt: "Dispenser platinado de 3 temperaturas con LED",
+    bullets: [
+      "3 temperaturas reales — fría 5°C · ambiente · caliente 85°C",
+      "Iluminación LED integrada · acabado platinado premium",
+      "Marca líder con respaldo de fábrica · 12 meses de garantía",
+      "Estructura de acero con plásticos de alta calidad",
+    ],
+    specs: [
+      { k: "Tipo de carga", v: "Botellón superior 20 L" },
+      { k: "Canillas", v: "3 (fría + ambiente + caliente)" },
+      { k: "Capacidad fría", v: "5 L/h a 5°C (85W)" },
+      { k: "Capacidad caliente", v: "8 L/h a 85°C (500W)" },
+      { k: "Voltaje", v: "220-240V · 50/60 Hz" },
+      { k: "Medidas", v: "90 × 32 × 36 cm" },
+      { k: "Color", v: "Plata / Platinum" },
+      { k: "Materiales", v: "Acero + plásticos premium" },
+      { k: "Garantía", v: "12 meses de fábrica" },
+    ],
+    hasToggle: true,
+    origen: "premium",
+    waBotellon: "Hola, quiero cotizar el dispenser Pro Trio.",
+    waRed: "Hola, quiero cotizar el dispenser Pro Trio versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+  },
+  {
+    id: "pro-ice",
+    nombre: "Pro Ice",
+    subtitulo: "Top de gama · 3 temperaturas + fabricadora de hielo",
+    descripcion: "El equipo más completo del catálogo. Frío, ambiente, caliente y hasta 13 kg de hielo por día integrados en un solo dispenser con panel táctil. Para oficinas premium, eventos corporativos y espacios gourmet.",
+    imagenes: ["/equipos/DISP-PLAT3C-HIELO-FRENTE.webp", "/equipos/DISP-PLAT3C-HIELO-LATERAL.webp"],
+    imagenAlt: "Dispenser platinado top de gama con fabricadora de hielo y panel táctil",
+    bullets: [
+      "Fabricadora de hielo integrada — hasta 13 kg/día sin freezer aparte",
+      "3 temperaturas + agua caliente para mate (5 L/h)",
+      "Panel táctil digital + bloqueo infantil en agua caliente",
+      "Marca líder con respaldo de fábrica · 12 meses de garantía",
+    ],
+    specs: [
+      { k: "Tipo de carga", v: "Botellón superior 20 L" },
+      { k: "Canillas", v: "3 (fría + ambiente + caliente)" },
+      { k: "Hielo", v: "Hasta 13 kg/día" },
+      { k: "Caliente", v: "Hasta 5 L/h" },
+      { k: "Panel", v: "Táctil digital" },
+      { k: "Seguridad", v: "Bloqueo infantil en canilla caliente" },
+      { k: "Voltaje", v: "220V" },
+      { k: "Color", v: "Plata / Platinum" },
+      { k: "Garantía", v: "12 meses de fábrica" },
+    ],
+    hasToggle: true,
+    badge: "Bajo pedido",
+    origen: "premium",
+    waBotellon: "Hola, quiero consultar disponibilidad del dispenser Pro Ice.",
+    waRed: "Hola, quiero consultar disponibilidad del dispenser Pro Ice versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+  },
+  {
+    id: "pro",
+    nombre: "Pro",
+    subtitulo: "Dispenser platinado de pie · empuja vaso · botellón 20 L",
+    descripcion: "Diseño premium en color plata para espacios que cuidan la imagen: oficinas ejecutivas, recepciones corporativas, locales gastronómicos.",
+    imagenes: ["/equipos/DIS-PLAT-FRENTE.webp", "/equipos/DIS-PLAT-LATERAL.webp", "/equipos/DIS-PLAT-PPLANO.webp"],
+    imagenAlt: "Dispenser platinado de pie con sistema empuja vaso",
+    bullets: [
+      "Sistema empuja-vaso — apoyás el vaso y sale agua, sin tocar canilla",
+      "Acabado platinado elegante",
+      "Marca líder con respaldo de fábrica · 12 meses de garantía",
+      "Frío y caliente con compresor real",
+    ],
+    specs: [
+      { k: "Tipo de carga", v: "Botellón superior 20 L" },
+      { k: "Sistema", v: "Empuja-vaso (frío + caliente)" },
+      { k: "Voltaje", v: "220V" },
+      { k: "Color", v: "Plata / Platinum" },
+      { k: "Garantía", v: "12 meses de fábrica" },
+    ],
+    hasToggle: true,
+    origen: "premium",
+    waBotellon: "Hola, quiero cotizar el dispenser Pro.",
+    waRed: "Hola, quiero cotizar el dispenser Pro versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+  },
+];
+
+const bebedero: Producto = {
+  id: "bebedero",
+  nombre: "Bebedero Inox",
+  subtitulo: "Bebedero industrial de acero inoxidable · conexión a red",
+  descripcion: "Equipo industrial de alta resistencia para escuelas, gimnasios, fábricas, talleres y oficinas con alto tráfico. Conexión directa a red de agua, sin botellones.",
+  imagenes: ["/equipos/BEBEDERO.webp", "/equipos/BEBEDERO-ARRIBA.webp", "/equipos/BEBEDERO-ATRAS.webp"],
+  imagenAlt: "Bebedero industrial de acero inoxidable para escuelas y gimnasios",
+  bullets: [
+    "Acero inoxidable — antivandálico, fácil limpieza, larga vida útil",
+    "Compresor de 1/6 HP para uso intensivo continuo",
+    "2 versiones disponibles — 40 L/h o 80 L/h según consumo",
+    "Industria argentina · 12 meses de garantía de fábrica",
+  ],
+  specs: [
+    { k: "Tipo", v: "De pie · conexión a red de agua" },
+    { k: "Material", v: "Acero inoxidable" },
+    { k: "Capacidad", v: "40 L/h o 80 L/h" },
+    { k: "Sistema de frío", v: "Compresor 1/6 HP" },
+    { k: "Medidas", v: "97 × 34 × 33 cm" },
+    { k: "Peso", v: "30 kg" },
+    { k: "Voltaje", v: "220V" },
+    { k: "Garantía", v: "12 meses de fábrica" },
+    { k: "Aplicaciones", v: "Escuelas · gimnasios · fábricas · oficinas" },
+  ],
+  hasToggle: false,
+  infoFijo: true,
+  badge: "Bajo pedido",
+  origen: "nacional",
+  waUnico: "Hola, quiero consultar el bebedero industrial inox. Estoy en [zona].",
+};
+
+const filtro: Producto = {
+  id: "filtro-ellen",
+  nombre: "Filtro purificador Ellen MP 80",
+  subtitulo: "Purificador de mesada · Aprobado ANMAT · Industria nacional",
+  descripcion: "Agua segura directo de tu canilla. Se conecta con un bypass — usás tu canilla como siempre (fría o caliente) y cuando querés agua filtrada, sale por el pico del purificador. Sin perforar mesada, sin instalación compleja.",
+  imagenes: ["/equipos/FILTRO-0.webp", "/equipos/FILTRO-1.webp", "/equipos/FILTRO-2.webp"],
+  imagenAlt: "Filtro purificador de agua Ellen MP 80 aprobado por ANMAT",
+  bullets: [
+    "3 años de vida útil · 36.000 litros filtrados",
+    "Aprobado por ANMAT y fabricado bajo norma IRAM 27300",
+    "Carbón activado con iones de plata — bactericida natural",
+    "Industria argentina (Italsur SA)",
+  ],
+  specs: [
+    { k: "Tipo", v: "Purificador de mesada" },
+    { k: "Instalación", v: "Bypass a canilla existente" },
+    { k: "Vida útil", v: "3 años · 36.000 litros" },
+    { k: "Caudal", v: "80 L/h" },
+    { k: "Componentes", v: "Carbón activado + iones de plata + membranas polipropileno" },
+    { k: "Pico", v: "Giratorio de movimiento soft" },
+    { k: "Reposición", v: "Equipo completo cada 3 años" },
+    { k: "Certificaciones", v: "ANMAT · INAL · IRAM 27300" },
+    { k: "Origen", v: "Industria argentina (Italsur SA)" },
+  ],
+  hasToggle: false,
+  origen: "nacional",
+  waUnico: "Hola, quiero cotizar el purificador Ellen MP 80.",
+};
+
+const eliminaFiltro = [
+  "Cloro, mal olor y mal sabor",
+  "Trihalometanos (derivados del cloro)",
+  "Sedimentos, arenillas, tierra y partículas",
+  "Algas, moho y turbiedad",
+  "Metales pesados: plomo, óxidos, cobre y cadmio",
+];
+
+const MAIL_CORP_SUBJECT = encodeURIComponent("Solicitud de cotización — Alquiler corporativo de equipos");
+const MAIL_CORP_BODY = encodeURIComponent(
+  "Hola, me comunico desde la web para consultar por el alquiler corporativo de equipos.\n\n" +
+  "Empresa / Razón social: \n" +
+  "Cantidad de equipos a alquilar (mínimo 5): \n" +
+  "Dirección de instalación: \n" +
+  "Cantidad aproximada de personas en la oficina: \n" +
+  "Información adicional: \n\n" +
+  "Quedo a la espera, gracias."
+);
+const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CORP_SUBJECT}&body=${MAIL_CORP_BODY}`;
+---
+
+<section class="equipos" id="equipos">
+
+  <div class="sec-header">
+    <span class="eyebrow">Equipos y filtros</span>
+    <h2>Dispensers, bebederos<br>y purificadores</h2>
+    <p class="sec-sub">
+      Equipamiento profesional con respaldo de marca líder y garantía de fábrica.
+      Para oficinas, comercios, hogares y empresas.
+    </p>
+  </div>
+
+  <div class="info-banner reveal" role="note" aria-label="Información importante de compra">
+    <div class="info-banner-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      Antes de comprar — información importante
+    </div>
+    <ul class="info-banner-list" role="list">
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>Despachamos solo en <strong>CABA y AMBA primer cordón</strong></span>
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+        </svg>
+        <span><strong>Sin local físico</strong> — solo envío a domicilio</span>
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1" y="3" width="15" height="13"/>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        <span>El <strong>costo de envío</strong> se cotiza aparte según zona</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="grid">
+    {dispensers.map((p) => (
+      <article class="card-equipo reveal" data-product-id={p.id}>
+        {p.badge && <span class="badge">{p.badge}</span>}
+
+        <div
+          class="card-imagen galeria"
+          data-imagenes-botellon={JSON.stringify(p.imagenes)}
+          data-imagenes-red={JSON.stringify(p.imagenesRed ?? p.imagenes)}
+        >
+          <div class="galeria-main">
+            <img
+              src={p.imagenes[0]}
+              alt={p.imagenAlt}
+              loading="lazy"
+              width="400"
+              height="500"
+              draggable="false"
+              class="galeria-img"
+              data-galeria-main
+            />
+            <div class="galeria-overlay" aria-hidden="true"></div>
+          </div>
+          {p.imagenes.length > 1 && (
+            <div class="galeria-thumbs" role="tablist" aria-label="Otras vistas del producto">
+              {p.imagenes.map((img, idx) => (
+                <button
+                  type="button"
+                  class:list={["galeria-thumb", { active: idx === 0 }]}
+                  data-image={img}
+                  data-image-idx={idx}
+                  aria-label={`Ver imagen ${idx + 1}`}
+                  role="tab"
+                  aria-selected={idx === 0 ? "true" : "false"}
+                >
+                  <img
+                    src={img}
+                    alt=""
+                    loading="lazy"
+                    draggable="false"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div class="card-body">
+          <h3 class="card-title">{p.nombre}</h3>
+          <p class="card-subtitle">{p.subtitulo}</p>
+
+          {p.hasToggle && (
+            <div class="toggle-wrap" role="tablist" aria-label="Tipo de instalación">
+              <button
+                type="button"
+                class="toggle-variant active"
+                data-variant="botellon"
+                data-wa-msg={p.waBotellon}
+                role="tab"
+                aria-selected="true"
+              >
+                Botellón
+              </button>
+              <button
+                type="button"
+                class="toggle-variant"
+                data-variant="red"
+                data-wa-msg={p.waRed}
+                role="tab"
+                aria-selected="false"
+              >
+                Red de agua
+              </button>
+            </div>
+          )}
+
+          {(p.hasToggle || p.infoFijo) && (
+            <div class:list={["info-red", { "is-hidden": p.hasToggle && !p.infoFijo }]}>
+              <div class="info-red-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2.69 5.66 9.03a8 8 0 1 0 12.68 0z"/>
+                </svg>
+                Conexión directa a la red
+              </div>
+              <p class="info-red-text">Esta versión requiere:</p>
+              <ul class="info-red-list">
+                <li>Filtro previo (cotiza aparte)</li>
+                <li>Kit de conexión a cañería</li>
+              </ul>
+              <p class="info-red-zone">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                Instalación a domicilio disponible en <strong>CABA y AMBA primer cordón</strong>
+              </p>
+            </div>
+          )}
+
+          <p class="card-desc">{p.descripcion}</p>
+
+          <ul class="bullets" role="list">
+            {p.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+
+          <a
+            href={p.hasToggle ? WA(p.waBotellon!) : WA(p.waUnico!)}
+            class="btn-cotizar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+            </svg>
+            <span class="btn-text">{p.badge ? "Consultar disponibilidad" : "Cotizar por WhatsApp"}</span>
+          </a>
+
+          <details class="specs">
+            <summary>Especificaciones técnicas</summary>
+            <table>
+              <tbody>
+                {p.specs.map((s) => (
+                  <tr>
+                    <th>{s.k}</th>
+                    <td>{s.v}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </details>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- Bebedero industrial — card horizontal destacada -->
+  <div class="hero-wrap">
+    <article class="card-equipo card-hero reveal" data-product-id={bebedero.id}>
+      {bebedero.badge && <span class="badge">{bebedero.badge}</span>}
+
+      <div class="card-imagen galeria">
+        <div class="galeria-main">
+          <img
+            src={bebedero.imagenes[0]}
+            alt={bebedero.imagenAlt}
+            loading="lazy"
+            width="400"
+            height="500"
+            draggable="false"
+            class="galeria-img"
+            data-galeria-main
+          />
+          <div class="galeria-overlay" aria-hidden="true"></div>
+        </div>
+        {bebedero.imagenes.length > 1 && (
+          <div class="galeria-thumbs" role="tablist" aria-label="Otras vistas del producto">
+            {bebedero.imagenes.map((img, idx) => (
+              <button
+                type="button"
+                class:list={["galeria-thumb", { active: idx === 0 }]}
+                data-image={img}
+                data-image-idx={idx}
+                aria-label={`Ver imagen ${idx + 1}`}
+                role="tab"
+                aria-selected={idx === 0 ? "true" : "false"}
+              >
+                <img
+                  src={img}
+                  alt=""
+                  loading="lazy"
+                  draggable="false"
+                />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="card-body">
+        <h3 class="card-title">{bebedero.nombre}</h3>
+        <p class="card-subtitle">{bebedero.subtitulo}</p>
+
+        <div class="info-red">
+          <div class="info-red-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2.69 5.66 9.03a8 8 0 1 0 12.68 0z"/>
+            </svg>
+            Conexión directa a la red
+          </div>
+          <p class="info-red-text">Esta versión requiere:</p>
+          <ul class="info-red-list">
+            <li>Filtro previo (cotiza aparte)</li>
+            <li>Kit de conexión a cañería</li>
+          </ul>
+          <p class="info-red-zone">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Instalación a domicilio disponible en <strong>CABA y AMBA primer cordón</strong>
+          </p>
+        </div>
+
+        <p class="card-desc">{bebedero.descripcion}</p>
+
+        <ul class="bullets" role="list">
+          {bebedero.bullets.map((b) => (
+            <li>{b}</li>
+          ))}
+        </ul>
+
+        <a
+          href={WA(bebedero.waUnico!)}
+          class="btn-cotizar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+          <span class="btn-text">Consultar disponibilidad</span>
+        </a>
+
+        <details class="specs">
+          <summary>Especificaciones técnicas</summary>
+          <table>
+            <tbody>
+              {bebedero.specs.map((s) => (
+                <tr>
+                  <th>{s.k}</th>
+                  <td>{s.v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </details>
+      </div>
+    </article>
+  </div>
+
+  <!-- Filtro Ellen — caso aparte -->
+  <div class="filtro-wrap">
+    <article class="card-equipo card-filtro reveal" data-product-id={filtro.id}>
+      <div class="card-imagen galeria">
+        <div class="galeria-main">
+          <img
+            src={filtro.imagenes[0]}
+            alt={filtro.imagenAlt}
+            loading="lazy"
+            width="400"
+            height="500"
+            draggable="false"
+            class="galeria-img"
+            data-galeria-main
+          />
+          <div class="galeria-overlay" aria-hidden="true"></div>
+        </div>
+        {filtro.imagenes.length > 1 && (
+          <div class="galeria-thumbs" role="tablist" aria-label="Otras vistas del producto">
+            {filtro.imagenes.map((img, idx) => (
+              <button
+                type="button"
+                class:list={["galeria-thumb", { active: idx === 0 }]}
+                data-image={img}
+                data-image-idx={idx}
+                aria-label={`Ver imagen ${idx + 1}`}
+                role="tab"
+                aria-selected={idx === 0 ? "true" : "false"}
+              >
+                <img
+                  src={img}
+                  alt=""
+                  loading="lazy"
+                  draggable="false"
+                />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="card-body">
+        <span class="anmat-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 12l2 2 4-4"/>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Aprobado ANMAT
+        </span>
+
+        <h3 class="card-title">{filtro.nombre}</h3>
+        <p class="card-subtitle">{filtro.subtitulo}</p>
+        <p class="card-desc">{filtro.descripcion}</p>
+
+        <ul class="bullets" role="list">
+          {filtro.bullets.map((b) => (
+            <li>{b}</li>
+          ))}
+        </ul>
+
+        <div class="elimina-block">
+          <p class="elimina-title">¿Qué elimina del agua?</p>
+          <ul class="elimina-list" role="list">
+            {eliminaFiltro.map((e) => (
+              <li>{e}</li>
+            ))}
+          </ul>
+        </div>
+
+        <a
+          href={WA(filtro.waUnico!)}
+          class="btn-cotizar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+          <span class="btn-text">Cotizar por WhatsApp</span>
+        </a>
+
+        <p class="instalacion-nota">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          ¿Querés que vayamos a instalarlo? Servicio disponible en
+          <strong> CABA y AMBA primer cordón</strong> — consultanos.
+        </p>
+
+        <details class="specs">
+          <summary>Especificaciones técnicas</summary>
+          <table>
+            <tbody>
+              {filtro.specs.map((s) => (
+                <tr>
+                  <th>{s.k}</th>
+                  <td>{s.v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </details>
+      </div>
+    </article>
+  </div>
+
+  <!-- Bloque Alquiler Corporativo -->
+  <div class="corp-wrap reveal">
+    <div class="corp">
+      <div class="corp-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18"/>
+          <path d="M5 21V7l8-4v18"/>
+          <path d="M19 21V11l-6-4"/>
+          <path d="M9 9v.01"/>
+          <path d="M9 12v.01"/>
+          <path d="M9 15v.01"/>
+          <path d="M9 18v.01"/>
+        </svg>
+      </div>
+      <div class="corp-text">
+        <span class="corp-eyebrow">Alquiler corporativo</span>
+        <h3 class="corp-title">¿Tu empresa necesita varios equipos?</h3>
+        <p class="corp-desc">
+          Ofrecemos <strong>alquiler mensual</strong> con servicio incluido: instalación, mantenimiento,
+          cambio de filtros y reemplazo de equipo en caso de falla.
+          <strong>Solo para empresas, mínimo 5 equipos.</strong>
+        </p>
+        <ul class="corp-list" role="list">
+          <li>Solo para empresas (no particulares)</li>
+          <li>Mínimo 5 equipos</li>
+          <li>Mantenimiento y filtros incluidos</li>
+          <li>Reemplazo inmediato si falla</li>
+        </ul>
+      </div>
+      <a href={MAIL_CORPORATIVO} class="corp-cta">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Solicitar cotización por email
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  const WA_BASE = "https://wa.me/5491166082608?text=";
+
+  document.querySelectorAll<HTMLElement>(".card-equipo").forEach((card) => {
+    // Toggle Botellón / Red de agua
+    const toggleBtns = card.querySelectorAll<HTMLButtonElement>(".toggle-variant");
+    if (toggleBtns.length) {
+      const infoBlock = card.querySelector<HTMLElement>(".info-red");
+      const ctaBtn = card.querySelector<HTMLAnchorElement>(".btn-cotizar");
+      const galeria = card.querySelector<HTMLElement>(".galeria");
+      const mainImg = galeria?.querySelector<HTMLImageElement>("[data-galeria-main]");
+      const thumbs = galeria?.querySelectorAll<HTMLButtonElement>(".galeria-thumb");
+
+      toggleBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const variant = btn.dataset.variant;
+          const waMsg = btn.dataset.waMsg;
+
+          toggleBtns.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-selected", String(active));
+          });
+
+          if (infoBlock) {
+            infoBlock.classList.toggle("is-hidden", variant !== "red");
+          }
+
+          if (ctaBtn && waMsg) {
+            ctaBtn.href = WA_BASE + encodeURIComponent(waMsg);
+          }
+
+          // Swap de imágenes según variante
+          if (galeria && mainImg && thumbs) {
+            const dataKey = variant === "red" ? "imagenesRed" : "imagenesBotellon";
+            const raw = galeria.dataset[dataKey];
+            if (raw) {
+              try {
+                const nuevasImgs = JSON.parse(raw) as string[];
+                if (nuevasImgs.length > 0) {
+                  mainImg.src = nuevasImgs[0];
+                  thumbs.forEach((thumb, idx) => {
+                    const newImg = nuevasImgs[idx];
+                    if (newImg) {
+                      const thumbImg = thumb.querySelector<HTMLImageElement>("img");
+                      if (thumbImg) thumbImg.src = newImg;
+                      thumb.dataset.image = newImg;
+                      const isFirst = idx === 0;
+                      thumb.classList.toggle("active", isFirst);
+                      thumb.setAttribute("aria-selected", String(isFirst));
+                    }
+                  });
+                }
+              } catch (e) {
+                // Si fallara el parse, no rompemos el toggle
+              }
+            }
+          }
+        });
+      });
+    }
+
+    // Galería de imágenes
+    const galeria = card.querySelector<HTMLElement>(".galeria");
+    if (galeria) {
+      const mainImg = galeria.querySelector<HTMLImageElement>("[data-galeria-main]");
+      const thumbs = galeria.querySelectorAll<HTMLButtonElement>(".galeria-thumb");
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+          const newSrc = thumb.dataset.image;
+          if (!mainImg || !newSrc) return;
+
+          mainImg.src = newSrc;
+
+          thumbs.forEach((t) => {
+            const active = t === thumb;
+            t.classList.toggle("active", active);
+            t.setAttribute("aria-selected", String(active));
+          });
+        });
+      });
+    }
+  });
+
+  // Protección de imágenes — disuade copia/descarga
+  const equiposSection = document.getElementById("equipos");
+  if (equiposSection) {
+    equiposSection.addEventListener("contextmenu", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === "IMG" || target.classList.contains("galeria-overlay")) {
+        e.preventDefault();
+      }
+    });
+    equiposSection.addEventListener("dragstart", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === "IMG") {
+        e.preventDefault();
+      }
+    });
+  }
+</script>
+
+<style>
+  /* ===== Sección ===== */
+  .equipos {
+    background: var(--surface);
+    padding: 72px 24px 80px;
+    border-top: 1px solid #eee;
+  }
+
+  /* Header */
+  .sec-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .sec-sub {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* ===== Banner restricciones ===== */
+  .info-banner {
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    background: #FFF8EC;
+    border: 1px solid #FFE6B8;
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .info-banner-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #92400e;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .info-banner-title svg { color: #d97706; }
+  .info-banner-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 720px) {
+    .info-banner-list { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  }
+  .info-banner-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #5b3a00;
+    line-height: 1.5;
+  }
+  .info-banner-list li svg {
+    color: #d97706;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .info-banner-list li strong { color: #1a1a1a; }
+
+  /* ===== Galería ===== */
+  .galeria {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .galeria-main {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
+  .galeria-img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none;
+  }
+  /* Capa transparente que intercepta clicks/contextmenu sobre la imagen */
+  .galeria-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: transparent;
+    cursor: default;
+  }
+  .galeria-thumbs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: #fafafa;
+    border-top: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .galeria-thumbs::-webkit-scrollbar { display: none; }
+  .galeria-thumb {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    background: #fff;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .galeria-thumb:hover {
+    border-color: rgba(255,123,3,0.4);
+    transform: translateY(-1px);
+  }
+  .galeria-thumb.active {
+    border-color: var(--brand);
+    background: #fff;
+  }
+  .galeria-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none;
+  }
+  /* ===== Grid ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (min-width: 640px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 980px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ===== Card ===== */
+  .card-equipo {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .card-equipo:hover {
+    border-color: rgba(255,123,3,0.35);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid #fde68a;
+  }
+
+  .card-imagen {
+    background: #F8F8F8;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-imagen .galeria-main {
+    aspect-ratio: 4 / 5;
+    display: grid;
+    place-items: center;
+  }
+  .card-imagen img.galeria-img,
+  .card-imagen > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 18px;
+    transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  .card-equipo:hover .card-imagen img.galeria-img,
+  .card-equipo:hover .card-imagen > img {
+    transform: scale(1.04);
+  }
+
+  .card-body {
+    padding: 22px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-grow: 1;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .card-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: -8px;
+  }
+  .card-desc {
+    font-size: 13.5px;
+    color: #374151;
+    line-height: 1.65;
+  }
+
+  /* ===== Toggle ===== */
+  .toggle-wrap {
+    display: flex;
+    background: #F3F4F6;
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .toggle-variant {
+    flex: 1;
+    padding: 8px 12px;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    font-family: inherit;
+  }
+  .toggle-variant.active {
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .toggle-variant:hover:not(.active) {
+    color: var(--text);
+  }
+
+  /* ===== Info Red ===== */
+  .info-red {
+    background: var(--brand-lt);
+    border: 1px solid rgba(255,123,3,0.2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .info-red.is-hidden { display: none; }
+
+  .info-red-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand-d);
+  }
+  .info-red-text {
+    font-size: 12.5px;
+    color: #5b3a00;
+    margin: 0;
+  }
+  .info-red-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .info-red-list li {
+    font-size: 12.5px;
+    color: #5b3a00;
+    padding-left: 16px;
+    position: relative;
+  }
+  .info-red-list li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: var(--brand);
+    font-weight: 700;
+  }
+  .info-red-zone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #5b3a00;
+    margin: 4px 0 0;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(255,123,3,0.25);
+  }
+  .info-red-zone svg { color: var(--brand); flex-shrink: 0; }
+
+  /* ===== Bullets ===== */
+  .bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .bullets li {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #374151;
+  }
+  .bullets li::before {
+    content: "";
+    flex-shrink: 0;
+    margin-top: 7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--brand);
+  }
+
+  /* ===== CTA ===== */
+  .btn-cotizar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 18px;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13.5px;
+    border-radius: 10px;
+    margin-top: 4px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-cotizar:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+
+  /* ===== Specs desplegable ===== */
+  .specs {
+    border-top: 1px solid #F3F4F6;
+    margin-top: 4px;
+    padding-top: 12px;
+  }
+  .specs summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+  }
+  .specs summary::-webkit-details-marker { display: none; }
+  .specs summary::before {
+    content: "▾";
+    font-size: 11px;
+    color: var(--brand);
+    transition: transform 0.2s;
+  }
+  .specs[open] summary::before { transform: rotate(180deg); }
+
+  .specs table {
+    width: 100%;
+    margin-top: 12px;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  .specs th, .specs td {
+    text-align: left;
+    padding: 7px 0;
+    border-bottom: 1px solid #F3F4F6;
+    vertical-align: top;
+  }
+  .specs th {
+    color: var(--muted);
+    font-weight: 500;
+    width: 42%;
+    padding-right: 12px;
+  }
+  .specs td {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .specs tr:last-child th,
+  .specs tr:last-child td { border-bottom: 0; }
+
+  /* ===== Card horizontal destacada (Bebedero + Filtro) ===== */
+  .hero-wrap,
+  .filtro-wrap {
+    max-width: 920px;
+    margin: 56px auto 0;
+  }
+  .card-hero,
+  .card-filtro {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .card-hero,
+    .card-filtro { grid-template-columns: 380px 1fr; }
+    .card-hero .card-imagen,
+    .card-filtro .card-imagen { height: 100%; border-bottom: 0; border-right: 1px solid var(--border); }
+    .card-hero .card-imagen .galeria-main,
+    .card-filtro .card-imagen .galeria-main { aspect-ratio: auto; height: 100%; min-height: 460px; }
+  }
+
+  .anmat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 5px 10px;
+    border-radius: 999px;
+    align-self: flex-start;
+    margin-bottom: -4px;
+  }
+  .anmat-badge svg { color: #059669; }
+
+  .elimina-block {
+    background: #F8F8F8;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 4px;
+  }
+  .elimina-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .elimina-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .elimina-list li {
+    font-size: 12.5px;
+    color: #374151;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .elimina-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #059669;
+    font-weight: 800;
+  }
+
+  .instalacion-nota {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    padding: 10px 0 0;
+    border-top: 1px solid #F3F4F6;
+  }
+  .instalacion-nota svg {
+    color: var(--brand);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .instalacion-nota strong {
+    color: var(--text);
+  }
+
+  /* ===== Bloque corporativo ===== */
+  .corp-wrap {
+    max-width: 1100px;
+    margin: 56px auto 0;
+  }
+  .corp {
+    background: var(--dark);
+    border-radius: 22px;
+    padding: 36px 32px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .corp::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(ellipse, rgba(255,123,3,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  @media (min-width: 800px) {
+    .corp {
+      grid-template-columns: auto 1fr auto;
+      gap: 36px;
+      padding: 40px 44px;
+    }
+  }
+
+  .corp-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(255,123,3,0.14);
+    border: 1px solid rgba(255,123,3,0.2);
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    color: var(--brand);
+    flex-shrink: 0;
+  }
+
+  .corp-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1;
+  }
+  .corp-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand);
+  }
+  .corp-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .corp-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+  .corp-desc strong { color: #fff; }
+  .corp-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  @media (min-width: 540px) {
+    .corp-list { grid-template-columns: 1fr 1fr; }
+  }
+  .corp-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+  .corp-list li::before {
+    content: "✓";
+    color: var(--brand);
+    font-weight: 800;
+  }
+
+  .corp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 22px;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 12px;
+    transition: background 0.2s, transform 0.15s;
+    z-index: 1;
+    white-space: nowrap;
+  }
+  .corp-cta:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+</style>
+</content>
+</invoke>
