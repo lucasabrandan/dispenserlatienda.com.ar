@@ -3,37 +3,6 @@ const WA = "https://wa.me/5491166082608?text=";
 
 const grupos = [
   {
-    label: "Sobre el servicio",
-    iconColor: "blue",
-    icon: `<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>`,
-    items: [
-      {
-        q: "¿En qué zonas trabajan?",
-        a: "Cubrimos toda CABA y el Gran Buenos Aires. Si tenés dudas sobre tu zona, escribinos por WhatsApp y te confirmamos en el momento.",
-      },
-      {
-        q: "¿Cuánto tarda en llegar el técnico?",
-        a: "Coordinamos la visita en 24 a 48 horas según la demanda. En casos urgentes hacemos lo posible por acelerar.",
-      },
-      {
-        q: "¿Cada cuánto conviene hacer el mantenimiento?",
-        a: "Una vez al año es suficiente para mantener el agua limpia y el equipo en buen estado. Te recomendamos no esperar más para evitar problemas mayores.",
-      },
-      {
-        q: "¿Cómo se pide el servicio?",
-        a: "Todo por WhatsApp. Nos contás qué necesitás, si es reparación nos mandás fotos del equipo, te pasamos un estimativo y coordinamos día y horario.",
-      },
-      {
-        q: "¿Atienden los sábados?",
-        a: "Sí, atendemos los sábados. Escribinos por WhatsApp y coordinamos según disponibilidad.",
-      },
-      {
-        q: "¿Emiten factura? ¿Tienen garantía?",
-        a: "Sí a los dos. Emitimos factura por todos los trabajos y damos 90 días de garantía sobre reparaciones y limpiezas.",
-      },
-    ],
-  },
-  {
     label: "Problemas con tu dispenser",
     iconColor: "orange",
     icon: `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`,
@@ -76,6 +45,37 @@ const grupos = [
       },
     ],
   },
+  {
+    label: "Sobre el servicio",
+    iconColor: "blue",
+    icon: `<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>`,
+    items: [
+      {
+        q: "¿En qué zonas trabajan?",
+        a: "Cubrimos toda CABA y el Gran Buenos Aires. Si tenés dudas sobre tu zona, escribinos por WhatsApp y te confirmamos en el momento.",
+      },
+      {
+        q: "¿Cuánto tarda en llegar el técnico?",
+        a: "Coordinamos la visita en 24 a 48 horas según la demanda. En casos urgentes hacemos lo posible por acelerar.",
+      },
+      {
+        q: "¿Cada cuánto conviene hacer el mantenimiento?",
+        a: "Una vez al año es suficiente para mantener el agua limpia y el equipo en buen estado. Te recomendamos no esperar más para evitar problemas mayores.",
+      },
+      {
+        q: "¿Cómo se pide el servicio?",
+        a: "Todo por WhatsApp. Nos contás qué necesitás, si es reparación nos mandás fotos del equipo, te pasamos un estimativo y coordinamos día y horario.",
+      },
+      {
+        q: "¿Atienden los sábados?",
+        a: "Sí, atendemos los sábados. Escribinos por WhatsApp y coordinamos según disponibilidad.",
+      },
+      {
+        q: "¿Emiten factura? ¿Tienen garantía?",
+        a: "Sí a los dos. Emitimos factura por todos los trabajos y damos 90 días de garantía sobre reparaciones y limpiezas.",
+      },
+    ],
+  },
 ];
 ---
 
@@ -88,7 +88,14 @@ const grupos = [
       <p class="sec-sub">Preparadas para el 90% de las consultas que recibimos.</p>
     </div>
 
-    <div class="faq-groups">
+    <p class="swipe-hint" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      Deslizá para ver más
+    </p>
+
+    <div class="faq-groups" id="faq-groups">
     {grupos.map((grupo) => (
       <div class="faq-group">
 
@@ -139,8 +146,49 @@ const grupos = [
     ))}
     </div>
 
+    <div class="faq-dots" aria-hidden="true">
+      {grupos.map((_, i) => <span class="dot" data-dot-idx={i} />)}
+    </div>
+
   </div>
 </section>
+
+<script>
+  const faqEl = document.getElementById("faq-groups");
+  if (faqEl) {
+    const dots = document.querySelectorAll<HTMLElement>(".faq-dots .dot");
+    const isMobile = () => window.matchMedia("(max-width: 859px)").matches;
+
+    const updateDots = () => {
+      if (!isMobile()) return;
+      const groups = faqEl.querySelectorAll<HTMLElement>(".faq-group");
+      if (groups.length === 0) return;
+      const groupWidth = (groups[0] as HTMLElement).offsetWidth + 14;
+      const idx = Math.round(faqEl.scrollLeft / groupWidth);
+      const clamped = Math.max(0, Math.min(dots.length - 1, idx));
+      dots.forEach((d, i) => d.classList.toggle("active", i === clamped));
+    };
+    faqEl.addEventListener("scroll", updateDots, { passive: true });
+    updateDots();
+
+    // Preview-scroll inicial (mobile)
+    let didPreview = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !didPreview && isMobile()) {
+          didPreview = true;
+          setTimeout(() => {
+            faqEl.scrollTo({ left: faqEl.clientWidth * 0.3, behavior: "smooth" });
+            setTimeout(() => {
+              faqEl.scrollTo({ left: 0, behavior: "smooth" });
+            }, 900);
+          }, 700);
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(faqEl);
+  }
+</script>
 
 <style>
   .faq {
@@ -154,16 +202,85 @@ const grupos = [
     margin: 0 auto;
   }
 
-  .faq-groups {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
+  /* Swipe hint — solo mobile */
+  .swipe-hint {
+    display: none;
   }
+  @media (max-width: 859px) {
+    .swipe-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 16px;
+      animation: faq-swipe-pulse 2s ease-in-out infinite;
+    }
+  }
+  @keyframes faq-swipe-pulse {
+    0%, 100% { transform: translateX(0); opacity: 0.85; }
+    50% { transform: translateX(6px); opacity: 1; }
+  }
+
+  /* Mobile: carrusel horizontal */
+  .faq-groups {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -24px;
+    padding: 4px 24px 8px;
+  }
+  .faq-groups::-webkit-scrollbar { display: none; }
+  .faq-groups > .faq-group {
+    flex: 0 0 auto;
+    width: 90%;
+    min-width: 0;
+    scroll-snap-align: center;
+  }
+
+  /* Desktop: grid 2 cols */
   @media (min-width: 860px) {
     .faq-groups {
+      display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 40px;
       align-items: start;
+      overflow: visible;
+      margin: 0;
+      padding: 0;
     }
+    .faq-groups > .faq-group {
+      width: auto;
+    }
+  }
+
+  /* Dots indicators — solo mobile */
+  .faq-dots {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .faq-dots .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d1d5db;
+    transition: background 0.25s, width 0.25s, border-radius 0.25s;
+  }
+  .faq-dots .dot.active {
+    background: var(--brand);
+    width: 22px;
+    border-radius: 4px;
+  }
+  @media (min-width: 860px) {
+    .faq-dots { display: none; }
   }
 
   /* Header */

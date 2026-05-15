@@ -1,4 +1,6 @@
 ---
+import EquipoCard from "./EquipoCard.astro";
+
 const WA_NUMBER = "5491166082608";
 const WA = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
 
@@ -18,6 +20,7 @@ type Producto = {
   badge?: string;
   infoFijo?: boolean;
   origen: "nacional" | "premium";
+  linea?: "classic" | "pro";    // para agrupar en mobile carruseles
   waBotellon?: string;
   waRed?: string;
   waUnico?: string;
@@ -52,6 +55,7 @@ const dispensers: Producto[] = [
     ],
     hasToggle: true,
     origen: "nacional",
+    linea: "classic",
     waBotellon: "Hola, quiero cotizar el dispenser Classic FC.",
     waRed: "Hola, quiero cotizar el dispenser Classic FC versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
   },
@@ -83,26 +87,27 @@ const dispensers: Producto[] = [
     ],
     hasToggle: true,
     origen: "nacional",
+    linea: "classic",
     waBotellon: "Hola, quiero cotizar el dispenser Compact.",
     waRed: "Hola, quiero cotizar el dispenser Compact versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
   },
   {
-    id: "classic-digital",
-    nombre: "Classic Digital",
-    subtitulo: "Dispenser frío/calor monocasco · diseño moderno para oficina",
-    descripcion: "Diseño monocasco con cuerpo de una sola pieza, look limpio y moderno con panel digital. Pensado para oficinas y espacios donde el equipo se ve.",
+    id: "classic-office",
+    nombre: "Classic Office",
+    subtitulo: "Dispenser frío/calor monocasco · indicador LED",
+    descripcion: "Diseño monocasco con cuerpo de una sola pieza y look limpio para oficina. Indicador LED que te avisa cuando el agua está lista. Pensado para oficinas y espacios donde el equipo se ve.",
     imagenes: ["/equipos/DIS-BN-FRENTE.webp", "/equipos/DIS-BN-LATERAL.webp"],
-    imagenAlt: "Dispenser de agua frío calor monocasco con panel digital",
+    imagenAlt: "Dispenser de agua frío calor monocasco con indicador LED",
     bullets: [
       "Diseño monocasco — cuerpo de una sola pieza, líneas limpias",
-      "Panel digital con indicadores de temperatura",
+      "Luz LED indicadora de temperatura",
       "Marca líder con respaldo de fábrica · 12 meses de garantía",
       "Frío y caliente con regulación precisa",
     ],
     specs: [
       { k: "Tipo de carga", v: "Botellón superior 20 L" },
       { k: "Canillas", v: "Frío + caliente" },
-      { k: "Panel", v: "Digital con indicadores" },
+      { k: "Indicador", v: "Luz LED" },
       { k: "Voltaje", v: "220V" },
       { k: "Peso", v: "10 kg" },
       { k: "Color", v: "Blanco con detalles negros" },
@@ -110,8 +115,9 @@ const dispensers: Producto[] = [
     ],
     hasToggle: true,
     origen: "premium",
-    waBotellon: "Hola, quiero cotizar el dispenser Classic Digital.",
-    waRed: "Hola, quiero cotizar el dispenser Classic Digital versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
+    linea: "classic",
+    waBotellon: "Hola, quiero cotizar el dispenser Classic Office.",
+    waRed: "Hola, quiero cotizar el dispenser Classic Office versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
   },
   {
     id: "pro-trio",
@@ -139,6 +145,7 @@ const dispensers: Producto[] = [
     ],
     hasToggle: true,
     origen: "premium",
+    linea: "pro",
     waBotellon: "Hola, quiero cotizar el dispenser Pro Trio.",
     waRed: "Hola, quiero cotizar el dispenser Pro Trio versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
   },
@@ -169,6 +176,7 @@ const dispensers: Producto[] = [
     hasToggle: true,
     badge: "Bajo pedido",
     origen: "premium",
+    linea: "pro",
     waBotellon: "Hola, quiero consultar disponibilidad del dispenser Pro Ice.",
     waRed: "Hola, quiero consultar disponibilidad del dispenser Pro Ice versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
   },
@@ -194,10 +202,17 @@ const dispensers: Producto[] = [
     ],
     hasToggle: true,
     origen: "premium",
+    linea: "pro",
     waBotellon: "Hola, quiero cotizar el dispenser Pro.",
     waRed: "Hola, quiero cotizar el dispenser Pro versión a red de agua, con filtro y kit de instalación. Estoy en [zona].",
   },
 ];
+
+// Agrupación por líneas para mobile carrusel + desktop grid
+const lineaClassic = dispensers.filter((p) => p.linea === "classic");
+const lineaPro = ["pro", "pro-trio", "pro-ice"]
+  .map((id) => dispensers.find((p) => p.id === id))
+  .filter((p): p is Producto => p !== undefined);
 
 const bebedero: Producto = {
   id: "bebedero",
@@ -327,141 +342,38 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
     </ul>
   </div>
 
-  <div class="grid">
-    {dispensers.map((p) => (
-      <article class="card-equipo reveal" data-product-id={p.id}>
-        {p.badge && <span class="badge">{p.badge}</span>}
+  <!-- Grupo Línea Classic -->
+  <div class="grupo-equipos reveal">
+    <h3 class="grupo-titulo">Línea Classic</h3>
+    <p class="swipe-hint" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      Deslizá para ver más
+    </p>
+    <div class="grupo-grid" id="grupo-classic-grid">
+      {lineaClassic.map((p) => <EquipoCard producto={p} />)}
+    </div>
+    <div class="grupo-dots" data-target="grupo-classic-grid" aria-hidden="true">
+      {lineaClassic.map((_, i) => <span class="dot" data-dot-idx={i} />)}
+    </div>
+  </div>
 
-        <div
-          class="card-imagen galeria"
-          data-imagenes-botellon={JSON.stringify(p.imagenes)}
-          data-imagenes-red={JSON.stringify(p.imagenesRed ?? p.imagenes)}
-        >
-          <div class="galeria-main">
-            <img
-              src={p.imagenes[0]}
-              alt={p.imagenAlt}
-              loading="lazy"
-              width="400"
-              height="500"
-              draggable="false"
-              class="galeria-img"
-              data-galeria-main
-            />
-            <div class="galeria-overlay" aria-hidden="true"></div>
-          </div>
-          {p.imagenes.length > 1 && (
-            <div class="galeria-thumbs" role="tablist" aria-label="Otras vistas del producto">
-              {p.imagenes.map((img, idx) => (
-                <button
-                  type="button"
-                  class:list={["galeria-thumb", { active: idx === 0 }]}
-                  data-image={img}
-                  data-image-idx={idx}
-                  aria-label={`Ver imagen ${idx + 1}`}
-                  role="tab"
-                  aria-selected={idx === 0 ? "true" : "false"}
-                >
-                  <img
-                    src={img}
-                    alt=""
-                    loading="lazy"
-                    draggable="false"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div class="card-body">
-          <h3 class="card-title">{p.nombre}</h3>
-          <p class="card-subtitle">{p.subtitulo}</p>
-
-          {p.hasToggle && (
-            <div class="toggle-wrap" role="tablist" aria-label="Tipo de instalación">
-              <button
-                type="button"
-                class="toggle-variant active"
-                data-variant="botellon"
-                data-wa-msg={p.waBotellon}
-                role="tab"
-                aria-selected="true"
-              >
-                Botellón
-              </button>
-              <button
-                type="button"
-                class="toggle-variant"
-                data-variant="red"
-                data-wa-msg={p.waRed}
-                role="tab"
-                aria-selected="false"
-              >
-                Red de agua
-              </button>
-            </div>
-          )}
-
-          {(p.hasToggle || p.infoFijo) && (
-            <div class:list={["info-red", { "is-hidden": p.hasToggle && !p.infoFijo }]}>
-              <div class="info-red-title">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 2.69 5.66 9.03a8 8 0 1 0 12.68 0z"/>
-                </svg>
-                Conexión directa a la red
-              </div>
-              <p class="info-red-text">Esta versión requiere:</p>
-              <ul class="info-red-list">
-                <li>Filtro previo (cotiza aparte)</li>
-                <li>Kit de conexión a cañería</li>
-              </ul>
-              <p class="info-red-zone">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                Instalación a domicilio disponible en <strong>CABA y AMBA primer cordón</strong>
-              </p>
-            </div>
-          )}
-
-          <p class="card-desc">{p.descripcion}</p>
-
-          <ul class="bullets" role="list">
-            {p.bullets.map((b) => (
-              <li>{b}</li>
-            ))}
-          </ul>
-
-          <a
-            href={p.hasToggle ? WA(p.waBotellon!) : WA(p.waUnico!)}
-            class="btn-cotizar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-            </svg>
-            <span class="btn-text">{p.badge ? "Consultar disponibilidad" : "Cotizar por WhatsApp"}</span>
-          </a>
-
-          <details class="specs">
-            <summary>Especificaciones técnicas</summary>
-            <table>
-              <tbody>
-                {p.specs.map((s) => (
-                  <tr>
-                    <th>{s.k}</th>
-                    <td>{s.v}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </details>
-        </div>
-      </article>
-    ))}
+  <!-- Grupo Línea Pro -->
+  <div class="grupo-equipos reveal">
+    <h3 class="grupo-titulo">Línea Pro</h3>
+    <p class="swipe-hint" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      Deslizá para ver más
+    </p>
+    <div class="grupo-grid" id="grupo-pro-grid">
+      {lineaPro.map((p) => <EquipoCard producto={p} />)}
+    </div>
+    <div class="grupo-dots" data-target="grupo-pro-grid" aria-hidden="true">
+      {lineaPro.map((_, i) => <span class="dot" data-dot-idx={i} />)}
+    </div>
   </div>
 
   <!-- Bebedero industrial — card horizontal destacada -->
@@ -802,6 +714,84 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
     }
   });
 
+  // Toggle "Ver detalles" en cards de los grupos (mobile)
+  document.querySelectorAll<HTMLElement>(".grupo-grid > .card-equipo").forEach((card) => {
+    const verMasBtn = card.querySelector<HTMLButtonElement>(".ver-mas-btn");
+    const verMasText = verMasBtn?.querySelector<HTMLElement>(".ver-mas-text");
+    if (!verMasBtn) return;
+
+    verMasBtn.addEventListener("click", () => {
+      const isExpanded = card.classList.toggle("expanded");
+      verMasBtn.setAttribute("aria-expanded", String(isExpanded));
+      if (verMasText) {
+        verMasText.textContent = isExpanded ? "Ocultar detalles" : "Ver detalles";
+      }
+    });
+  });
+
+  // Grupos de equipos (Línea Classic / Línea Pro) — carrusel mobile con dots
+  document.querySelectorAll<HTMLElement>(".grupo-equipos").forEach((grupo) => {
+    const grid = grupo.querySelector<HTMLElement>(".grupo-grid");
+    const dots = grupo.querySelectorAll<HTMLElement>(".grupo-dots .dot");
+    if (!grid || dots.length === 0) return;
+
+    const isMobile = () => window.matchMedia("(max-width: 979px)").matches;
+
+    // Update dot indicator según scroll
+    const updateDots = () => {
+      if (!isMobile()) return;
+      const cards = grid.querySelectorAll<HTMLElement>(".card-equipo");
+      if (cards.length === 0) return;
+      const cardWidth = (cards[0] as HTMLElement).offsetWidth + 14; // 14px = gap
+      const idx = Math.round(grid.scrollLeft / cardWidth);
+      const clamped = Math.max(0, Math.min(dots.length - 1, idx));
+      dots.forEach((d, i) => d.classList.toggle("active", i === clamped));
+    };
+    grid.addEventListener("scroll", updateDots, { passive: true });
+    updateDots();
+
+    // Preview-scroll inicial al entrar al viewport (solo mobile)
+    let didPreview = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !didPreview && isMobile()) {
+          didPreview = true;
+          setTimeout(() => {
+            grid.scrollTo({ left: grid.clientWidth * 0.35, behavior: "smooth" });
+            setTimeout(() => {
+              grid.scrollTo({ left: 0, behavior: "smooth" });
+            }, 900);
+          }, 700);
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(grupo);
+  });
+
+  // Banner restricciones collapsible en mobile
+  const banner = document.querySelector<HTMLElement>(".info-banner");
+  if (banner) {
+    const title = banner.querySelector<HTMLElement>(".info-banner-title");
+    const mq = window.matchMedia("(max-width: 639px)");
+
+    const applyMobileState = (isMobile: boolean) => {
+      if (isMobile) banner.classList.add("is-collapsed");
+      else banner.classList.remove("is-collapsed");
+    };
+
+    applyMobileState(mq.matches);
+    mq.addEventListener("change", (e) => applyMobileState(e.matches));
+
+    if (title) {
+      title.addEventListener("click", () => {
+        // Solo togglea si está en mobile
+        if (window.matchMedia("(max-width: 639px)").matches) {
+          banner.classList.toggle("is-collapsed");
+        }
+      });
+    }
+  }
+
   // Protección de imágenes — disuade copia/descarga
   const equiposSection = document.getElementById("equipos");
   if (equiposSection) {
@@ -820,7 +810,7 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
   }
 </script>
 
-<style>
+<style is:global>
   /* ===== Sección ===== */
   .equipos {
     background: var(--surface);
@@ -880,7 +870,26 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .info-banner-title svg { color: #d97706; }
+  .info-banner-title svg { color: #d97706; flex-shrink: 0; }
+
+  /* Collapsible behavior — solo activo en mobile via JS class */
+  .info-banner.is-collapsed .info-banner-list { display: none; }
+  @media (max-width: 639px) {
+    .info-banner-title {
+      cursor: pointer;
+      user-select: none;
+      justify-content: space-between;
+    }
+    .info-banner-title::after {
+      content: "▾";
+      color: #d97706;
+      font-size: 11px;
+      transition: transform 0.2s;
+    }
+    .info-banner:not(.is-collapsed) .info-banner-title::after {
+      transform: rotate(180deg);
+    }
+  }
   .info-banner-list {
     list-style: none;
     margin: 0;
@@ -972,19 +981,145 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
     -webkit-touch-callout: none;
     pointer-events: none;
   }
-  /* ===== Grid ===== */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
+  /* ===== Grupo Equipos (línea Classic / Pro) ===== */
+  .grupo-equipos {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 36px;
   }
-  @media (min-width: 640px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
+  .grupo-equipos:last-of-type { margin-bottom: 0; }
+
+  .grupo-titulo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .swipe-hint {
+    display: none;
+  }
+  @media (max-width: 979px) {
+    .swipe-hint {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 12px;
+      animation: equipo-swipe-pulse 2s ease-in-out infinite;
+    }
+  }
+  @keyframes equipo-swipe-pulse {
+    0%, 100% { transform: translateX(0); opacity: 0.85; }
+    50% { transform: translateX(5px); opacity: 1; }
+  }
+
+  /* Mobile: carrusel horizontal */
+  .grupo-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -24px;
+    padding: 4px 24px 8px;
+  }
+  .grupo-grid::-webkit-scrollbar { display: none; }
+  .grupo-grid > .card-equipo {
+    flex: 0 0 auto;
+    width: 80%;
+    min-width: 0;
+    scroll-snap-align: center;
+  }
+  @media (min-width: 480px) {
+    .grupo-grid > .card-equipo { width: 60%; }
+  }
+  @media (min-width: 720px) {
+    .grupo-grid > .card-equipo { width: 42%; }
+  }
+
+  /* Desktop: grid 3 cols */
+  @media (min-width: 980px) {
+    .grupo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    .grupo-grid > .card-equipo {
+      width: auto;
+    }
+  }
+
+  /* Dots indicators — solo mobile/tablet */
+  .grupo-dots {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .grupo-dots .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d1d5db;
+    transition: background 0.25s, width 0.25s, border-radius 0.25s;
+  }
+  .grupo-dots .dot.active {
+    background: var(--brand);
+    width: 22px;
+    border-radius: 4px;
   }
   @media (min-width: 980px) {
-    .grid { grid-template-columns: repeat(3, 1fr); }
+    .grupo-dots { display: none; }
+  }
+
+  /* ===== Card detalles ===== */
+  /* En desktop siempre visible. En mobile colapsable con botón "Ver detalles". */
+  .card-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .ver-mas-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .ver-mas-btn:hover { background: #fafafa; border-color: var(--brand); color: var(--text); }
+  .ver-mas-icon { transition: transform 0.2s; flex-shrink: 0; }
+
+  /* Mobile: ocultar detalles por default + mostrar botón "Ver detalles" */
+  @media (max-width: 979px) {
+    .grupo-grid > .card-equipo .card-detalles {
+      display: none;
+    }
+    .grupo-grid > .card-equipo.expanded .card-detalles {
+      display: flex;
+    }
+    .grupo-grid > .card-equipo .ver-mas-btn {
+      display: inline-flex;
+    }
+    .grupo-grid > .card-equipo.expanded .ver-mas-icon {
+      transform: rotate(180deg);
+    }
   }
 
   /* ===== Card ===== */

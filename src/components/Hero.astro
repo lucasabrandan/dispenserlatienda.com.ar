@@ -15,13 +15,15 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
     <!-- Eyebrow -->
     <div class="eyebrow">
       <span class="pulse" aria-hidden="true"></span>
-      Servicio técnico de dispensers · CABA y AMBA
+      <span class="eyebrow-main">Servicio técnico de dispenser</span>
+      <span class="eyebrow-sep" aria-hidden="true"> · </span>
+      <span class="eyebrow-zone">CABA y AMBA</span>
     </div>
 
     <!-- Título -->
     <h1>
-      Reparación y limpieza de<br />
-      dispensers <em>a domicilio</em>
+      Reparación y limpieza<br />
+      de dispenser <em>a domicilio</em>
     </h1>
 
     <!-- Descripción -->
@@ -53,25 +55,14 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
     </div>
     <p class="cta-note">Sin turno previo · Visita en 24 a 48 hs</p>
 
-    <!-- Stats -->
-    <div class="stats-bar" role="list" aria-label="Nuestros números">
-      <div class="stat" role="listitem">
-        <span class="stat-num">⭐ 4.9</span>
-        <span class="stat-lbl">Google Business</span>
-      </div>
-      <div class="stat" role="listitem">
-        <span class="stat-num">40</span>
-        <span class="stat-lbl">Reseñas verificadas</span>
-      </div>
-      <div class="stat" role="listitem">
-        <span class="stat-num">7+</span>
-        <span class="stat-lbl">Años de experiencia</span>
-      </div>
-      <div class="stat" role="listitem">
-        <span class="stat-num">24-48h</span>
-        <span class="stat-lbl">Para la visita técnica</span>
-      </div>
-    </div>
+    <!-- Línea de prueba social compacta -->
+    <p class="trust-line" aria-label="Reputación verificada">
+      <span class="trust-stars">★ 4.9 en Google</span>
+      <span class="trust-sep" aria-hidden="true">·</span>
+      <span>40 reseñas verificadas</span>
+      <span class="trust-sep" aria-hidden="true">·</span>
+      <span>7+ años en CABA y AMBA</span>
+    </p>
 
     <!-- Chips de reseñas -->
     <div class="review-chips">
@@ -163,6 +154,8 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
   .eyebrow {
     display: inline-flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
     background: rgba(255,123,3,0.12);
     border: 1px solid rgba(255,123,3,0.22);
@@ -174,6 +167,14 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
     letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-bottom: 24px;
+  }
+  /* En mobile: "CABA y AMBA" en línea propia */
+  @media (max-width: 639px) {
+    .eyebrow-sep { display: none; }
+    .eyebrow-zone {
+      width: 100%;
+      text-align: center;
+    }
   }
   .pulse {
     width: 7px; height: 7px;
@@ -199,6 +200,10 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
   h1 em {
     font-style: normal;
     color: var(--brand);
+  }
+  /* En mobile: "a domicilio" en línea propia */
+  @media (max-width: 639px) {
+    h1 em { display: block; }
   }
 
   /* Lead */
@@ -288,50 +293,24 @@ const WA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, vengo
     margin-top: 10px;
   }
 
-  /* Stats — 2x2 en mobile, 4 columnas en desktop */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid rgba(255,123,3,0.15);
-    border-radius: 18px;
-    overflow: hidden;
-    background: rgba(255,123,3,0.04);
-    max-width: 620px;
-    margin: 0 auto 24px;
-    box-shadow: 0 0 40px rgba(255,123,3,0.07);
-  }
-  @media (min-width: 540px) {
-    .stats-bar { grid-template-columns: repeat(4, 1fr); }
-  }
-  .stat {
+  /* Línea de prueba social compacta */
+  .trust-line {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    padding: 18px 12px;
-    border-right: 1px solid rgba(255,123,3,0.1);
-    border-bottom: 1px solid rgba(255,123,3,0.1);
+    gap: 8px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    margin: 0 auto 28px;
+    max-width: 560px;
   }
-  /* Quitar bordes sobrantes en mobile (2 cols) */
-  .stat:nth-child(2n)   { border-right: none; }
-  .stat:nth-child(3),
-  .stat:nth-child(4)    { border-bottom: none; }
-  /* Quitar bordes sobrantes en desktop (4 cols) */
-  @media (min-width: 540px) {
-    .stat               { border-bottom: none; }
-    .stat:nth-child(2n) { border-right: 1px solid rgba(255,123,3,0.1); }
-    .stat:last-child    { border-right: none; }
+  .trust-stars {
+    color: #FFB800;
+    font-weight: 700;
   }
-  .stat-num {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--brand);
-  }
-  @media (min-width: 540px) { .stat-num { font-size: 26px; } }
-  .stat-lbl {
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-    margin-top: 4px;
-    line-height: 1.4;
+  .trust-sep {
+    color: rgba(255,255,255,0.25);
   }
 
   /* Chips de reseñas */

@@ -32,7 +32,14 @@ const pasos = [
       <p class="sec-sub">Coordinamos todo por WhatsApp para que no tengas que moverte.</p>
     </div>
 
-    <ol class="steps" role="list">
+    <p class="swipe-hint" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      Deslizá para ver los pasos
+    </p>
+
+    <ol class="steps" id="proceso-steps" role="list">
       {pasos.map((paso) => (
         <li class={`step ${paso.n === 1 ? "step--first" : ""}`}>
           <div class="step-num" aria-hidden="true">{paso.n}</div>
@@ -44,8 +51,49 @@ const pasos = [
       ))}
     </ol>
 
+    <div class="steps-dots" aria-hidden="true">
+      {pasos.map((_, i) => <span class="dot" data-dot-idx={i} />)}
+    </div>
+
   </div>
 </section>
+
+<script>
+  const stepsEl = document.getElementById("proceso-steps");
+  if (stepsEl) {
+    const dots = document.querySelectorAll<HTMLElement>(".steps-dots .dot");
+    const isMobile = () => window.matchMedia("(max-width: 719px)").matches;
+
+    const updateDots = () => {
+      if (!isMobile()) return;
+      const steps = stepsEl.querySelectorAll<HTMLElement>(".step");
+      if (steps.length === 0) return;
+      const stepWidth = (steps[0] as HTMLElement).offsetWidth + 12;
+      const idx = Math.round(stepsEl.scrollLeft / stepWidth);
+      const clamped = Math.max(0, Math.min(dots.length - 1, idx));
+      dots.forEach((d, i) => d.classList.toggle("active", i === clamped));
+    };
+    stepsEl.addEventListener("scroll", updateDots, { passive: true });
+    updateDots();
+
+    // Preview-scroll inicial (mobile)
+    let didPreview = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !didPreview && isMobile()) {
+          didPreview = true;
+          setTimeout(() => {
+            stepsEl.scrollTo({ left: stepsEl.clientWidth * 0.35, behavior: "smooth" });
+            setTimeout(() => {
+              stepsEl.scrollTo({ left: 0, behavior: "smooth" });
+            }, 900);
+          }, 700);
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(stepsEl);
+  }
+</script>
 
 <style>
   .proceso {
@@ -87,20 +135,53 @@ const pasos = [
     line-height: 1.6;
   }
 
-  /* Steps */
-  .steps {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-    position: relative;
+  /* Swipe hint — solo mobile */
+  .swipe-hint {
+    display: none;
+  }
+  @media (max-width: 719px) {
+    .swipe-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 16px;
+      animation: proceso-swipe-pulse 2s ease-in-out infinite;
+    }
+  }
+  @keyframes proceso-swipe-pulse {
+    0%, 100% { transform: translateX(0); opacity: 0.85; }
+    50% { transform: translateX(6px); opacity: 1; }
   }
 
-  /* Línea conectora horizontal — solo desktop */
+  /* Steps — mobile: carrusel horizontal */
+  .steps {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -24px;
+    padding: 0 24px 4px;
+    position: relative;
+  }
+  .steps::-webkit-scrollbar { display: none; }
+
+  /* Steps — desktop: grid 4 cols con línea conectora */
   @media (min-width: 720px) {
     .steps {
+      display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0;
+      overflow: visible;
+      margin: 0;
+      padding: 0;
     }
     .steps::before {
       content: '';
@@ -123,17 +204,38 @@ const pasos = [
     position: relative;
   }
 
-  /* Línea vertical mobile entre steps */
+  /* Mobile: cada step ocupa ~75% del ancho, con scroll-snap */
   @media (max-width: 719px) {
-    .step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 56px;
-      left: 50%;
-      width: 1px;
-      height: calc(100% - 24px);
-      background: linear-gradient(to bottom, var(--brand), rgba(255,123,3,0.1));
+    .step {
+      flex: 0 0 auto;
+      width: 75%;
+      min-width: 0;
+      scroll-snap-align: center;
+      padding: 8px 16px;
     }
+  }
+
+  /* Dots indicators — solo mobile */
+  .steps-dots {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .steps-dots .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d1d5db;
+    transition: background 0.25s, width 0.25s, border-radius 0.25s;
+  }
+  .steps-dots .dot.active {
+    background: var(--brand);
+    width: 22px;
+    border-radius: 4px;
+  }
+  @media (min-width: 720px) {
+    .steps-dots { display: none; }
   }
 
   /* Número */

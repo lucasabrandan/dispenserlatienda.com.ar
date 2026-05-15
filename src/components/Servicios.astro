@@ -1,6 +1,7 @@
 ---
 const WA_LIMPIEZA = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, quiero consultar el precio de limpieza y cambio de filtro.");
 const WA_REPARACION = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, necesito reparar mi dispenser. Les paso los datos y fotos del equipo.");
+const WA_CONVERSION = "https://wa.me/5491166082608?text=" + encodeURIComponent("Hola, quiero consultar la conversión de mi dispenser de bidón a red de agua. Estoy en [zona].");
 ---
 
 <section class="servicios" id="servicios">
@@ -12,7 +13,13 @@ const WA_REPARACION = "https://wa.me/5491166082608?text=" + encodeURIComponent("
   </div>
 
   <div class="split-wrap">
-    <div class="split">
+    <p class="swipe-hint" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      Deslizá para ver más
+    </p>
+    <div class="split" id="servicios-split">
 
       <!-- Panel izquierdo — Limpieza (destacado) -->
       <div class="panel-dark">
@@ -88,10 +95,84 @@ const WA_REPARACION = "https://wa.me/5491166082608?text=" + encodeURIComponent("
 
       </div>
 
+      <!-- Panel — Conversión bidón a red de agua -->
+      <div class="panel-light">
+
+        <div class="panel-icon light-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 1 21 5 17 9"/>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+            <polyline points="7 23 3 19 7 15"/>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+        </div>
+
+        <h3 class="panel-title light-title">Conversión<br>de bidón a red</h3>
+
+        <p class="panel-desc light-desc">
+          ¿Tu equipo es de bidón pero no conseguís repuestos? Lo adaptamos para que se conecte directo a la red de agua. Incluye kit con filtro flotante y tapa ciega más la instalación a domicilio.
+        </p>
+
+        <ul class="panel-list light-list" role="list">
+          <li>Adaptación de equipos sin repuestos disponibles</li>
+          <li>Kit incluido: filtro flotante + tapa ciega</li>
+          <li>Instalación a domicilio incluida</li>
+          <li>Solo en CABA y AMBA primer cordón</li>
+        </ul>
+
+        <a href={WA_CONVERSION} class="btn-outline" target="_blank" rel="noopener noreferrer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Consultar
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="split-dots" aria-hidden="true">
+      <span class="dot" data-dot-idx="0"></span>
+      <span class="dot" data-dot-idx="1"></span>
+      <span class="dot" data-dot-idx="2"></span>
     </div>
   </div>
 
 </section>
+
+<script>
+  const split = document.getElementById("servicios-split");
+  if (split) {
+    const dots = document.querySelectorAll<HTMLElement>(".split-dots .dot");
+    const isMobile = () => window.matchMedia("(max-width: 719px)").matches;
+
+    // Update dot indicator based on scroll position
+    const updateDots = () => {
+      if (!isMobile()) return;
+      const idx = Math.round(split.scrollLeft / (split.clientWidth * 0.92));
+      dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+    };
+    split.addEventListener("scroll", updateDots, { passive: true });
+    updateDots();
+
+    // Preview-scroll inicial: al entrar en viewport por primera vez (solo mobile)
+    let didPreview = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !didPreview && isMobile()) {
+          didPreview = true;
+          setTimeout(() => {
+            split.scrollTo({ left: split.clientWidth * 0.4, behavior: "smooth" });
+            setTimeout(() => {
+              split.scrollTo({ left: 0, behavior: "smooth" });
+            }, 900);
+          }, 600);
+        }
+      });
+    }, { threshold: 0.4 });
+    io.observe(split);
+  }
+</script>
 
 <style>
   /* ===== Sección ===== */
@@ -133,15 +214,93 @@ const WA_REPARACION = "https://wa.me/5491166082608?text=" + encodeURIComponent("
     max-width: 980px;
     margin: 0 auto;
   }
+
+  /* Hint "Deslizá para ver más" — solo mobile */
+  .swipe-hint {
+    display: none;
+  }
+  @media (max-width: 719px) {
+    .swipe-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 14px;
+      animation: swipe-hint-pulse 2s ease-in-out infinite;
+    }
+  }
+  @keyframes swipe-hint-pulse {
+    0%, 100% { transform: translateX(0); opacity: 0.85; }
+    50% { transform: translateX(6px); opacity: 1; }
+  }
+
+  /* Mobile: carrusel horizontal */
   .split {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -24px;
+    padding: 0 24px 4px;
+  }
+  .split::-webkit-scrollbar { display: none; }
+  .split > * {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
     border-radius: 22px;
-    overflow: hidden;
     border: 1px solid #E5E7EB;
   }
+
+  /* Desktop: vuelve al grid (3 columnas) */
   @media (min-width: 720px) {
-    .split { grid-template-columns: 1fr 1fr; }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid #E5E7EB;
+    }
+    .split > * {
+      flex: none;
+      border-radius: 0;
+      border: 0;
+    }
+    /* Línea separadora vertical entre paneles claros */
+    .split > .panel-light + .panel-light {
+      border-left: 1px solid #E5E7EB;
+    }
+  }
+
+  /* Dots indicators — solo mobile */
+  .split-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d1d5db;
+    transition: background 0.25s, width 0.25s, border-radius 0.25s;
+  }
+  .dot.active {
+    background: var(--brand);
+    width: 24px;
+    border-radius: 4px;
+  }
+  @media (min-width: 720px) {
+    .split-dots { display: none; }
   }
 
   /* ===== Panel compartido ===== */
