@@ -1,5 +1,7 @@
 ---
-const subject = encodeURIComponent("Solicitud de cotización – Dispenser La Tienda");
+import { EMAIL, SITE } from "../config/site";
+
+const subject = encodeURIComponent(`Solicitud de cotización – ${SITE.name}`);
 const body = encodeURIComponent(
   "Hola, me comunico desde la web para solicitar una cotización.\n\n" +
   "Nombre o empresa: \n" +
@@ -9,7 +11,7 @@ const body = encodeURIComponent(
   "Diagnóstico / problema: \n\n" +
   "Quedo a la espera, gracias."
 );
-const MAIL = `mailto:info@dispenserlatienda.com.ar?subject=${subject}&body=${body}`;
+const MAIL = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
 ---
 
 <section class="cta-banner">

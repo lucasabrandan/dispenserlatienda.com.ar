@@ -1,8 +1,8 @@
 ---
 import EquipoCard from "./EquipoCard.astro";
 
-const WA_NUMBER = "5491166082608";
-const WA = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+import { PHONE, COBERTURA } from "../config/site";
+const WA = (text: string) => `https://wa.me/${PHONE.raw}?text=${encodeURIComponent(text + " 🛒")}`;
 
 type Spec = { k: string; v: string };
 
@@ -295,7 +295,7 @@ const MAIL_CORP_BODY = encodeURIComponent(
 const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CORP_SUBJECT}&body=${MAIL_CORP_BODY}`;
 ---
 
-<section class="equipos" id="equipos">
+<section class="equipos" id="equipos" data-wa-number={PHONE.raw}>
 
   <div class="sec-header">
     <span class="eyebrow">Equipos y filtros</span>
@@ -321,7 +321,7 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
           <circle cx="12" cy="10" r="3"/>
         </svg>
-        <span>Despachamos solo en <strong>CABA y AMBA primer cordón</strong></span>
+        <span>Despachamos solo en <strong>{COBERTURA.despacho}</strong></span>
       </li>
       <li>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -440,7 +440,7 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
               <circle cx="12" cy="10" r="3"/>
             </svg>
-            Instalación a domicilio disponible en <strong>CABA y AMBA primer cordón</strong>
+            Instalación a domicilio disponible en <strong>{COBERTURA.despacho}</strong>
           </p>
         </div>
 
@@ -568,7 +568,7 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
             <circle cx="12" cy="10" r="3"/>
           </svg>
           ¿Querés que vayamos a instalarlo? Servicio disponible en
-          <strong> CABA y AMBA primer cordón</strong> — consultanos.
+          <strong> {COBERTURA.despacho}</strong> — consultanos.
         </p>
 
         <details class="specs">
@@ -616,6 +616,13 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
           <li>Mantenimiento y filtros incluidos</li>
           <li>Reemplazo inmediato si falla</li>
         </ul>
+        <p class="corp-cobertura">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          {COBERTURA.coberturaEmpresa}
+        </p>
       </div>
       <a href={MAIL_CORPORATIVO} class="corp-cta">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -630,7 +637,8 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
 </section>
 
 <script>
-  const WA_BASE = "https://wa.me/5491166082608?text=";
+  const waNumber = document.getElementById("equipos")?.dataset.waNumber || "5491166082608";
+  const WA_BASE = "https://wa.me/" + waNumber + "?text=";
 
   document.querySelectorAll<HTMLElement>(".card-equipo").forEach((card) => {
     // Toggle Botellón / Red de agua
@@ -1576,6 +1584,23 @@ const MAIL_CORPORATIVO = `mailto:info@dispenserlatienda.com.ar?subject=${MAIL_CO
     content: "✓";
     color: var(--brand);
     font-weight: 800;
+  }
+
+  .corp-cobertura {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 4px;
+  }
+  .corp-cobertura svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--brand);
   }
 
   .corp-cta {

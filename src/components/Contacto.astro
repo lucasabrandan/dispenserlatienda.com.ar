@@ -1,5 +1,5 @@
 ---
-const WA = "https://wa.me/5491166082608";
+import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
 ---
 
 <section class="contacto" id="contacto">
@@ -21,7 +21,7 @@ const WA = "https://wa.me/5491166082608";
             </div>
             <div class="contact-text">
               <strong>Cobertura</strong>
-              <span>CABA y AMBA</span>
+              <span>{COBERTURA.short}</span>
             </div>
           </li>
           <li class="contact-item">
@@ -32,7 +32,7 @@ const WA = "https://wa.me/5491166082608";
             </div>
             <div class="contact-text">
               <strong>Horario</strong>
-              <span>Lunes a sábado · Respuesta inmediata</span>
+              <span>{HORARIO.display} · Respuesta inmediata</span>
             </div>
           </li>
           <li class="contact-item">
@@ -43,7 +43,7 @@ const WA = "https://wa.me/5491166082608";
             </div>
             <div class="contact-text">
               <strong>Email</strong>
-              <span>info@dispenserlatienda.com.ar</span>
+              <span>{EMAIL}</span>
             </div>
           </li>
         </ul>
@@ -61,8 +61,22 @@ const WA = "https://wa.me/5491166082608";
             <option value="" disabled selected>Seleccioná un servicio</option>
             <option value="Limpieza y cambio de filtro">Limpieza y cambio de filtro</option>
             <option value="Reparación de dispenser">Reparación de dispenser</option>
+            <option value="Conversión bidón a red">Conversión bidón a red</option>
+            <option value="Alquiler corporativo">Alquiler corporativo</option>
             <option value="Consulta general">Consulta general</option>
           </select>
+        </div>
+        <div class="form-row zona-row">
+          <label for="zona">¿En qué zona estás?</label>
+          <div class="zona-wrap">
+            <input type="text" id="zona" name="zona" placeholder="Escribí tu localidad..." autocomplete="off" />
+            <ul id="zona-suggestions" class="zona-suggestions" role="listbox" style="display:none;"></ul>
+          </div>
+          <p id="zona-hint" class="zona-hint" style="display:none;"></p>
+        </div>
+        <div class="form-row">
+          <label for="telefono">Tu teléfono (opcional)</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej: 11 2345-6789" autocomplete="tel" />
         </div>
         <div class="form-row">
           <label for="mensaje">Contanos más (opcional)</label>
@@ -81,24 +95,160 @@ const WA = "https://wa.me/5491166082608";
   </div>
 </section>
 
-<script is:inline>
+<script is:inline define:vars={{
+  waNumber: PHONE.raw,
+  allZonas: [
+    ...ZONAS.nucleo.map(z => ({ name: z, type: 'nucleo' })),
+    ...ZONAS.centrica.map(z => ({ name: z, type: 'centrica' })),
+  ],
+  msgEmpresa: COBERTURA.empresaRemota,
+}}>
   document.addEventListener('DOMContentLoaded', function () {
     var form = document.getElementById('contact-form');
     if (!form) return;
+
+    // --- Autocompletado de zonas ---
+    var zonaInput = document.getElementById('zona');
+    var sugList = document.getElementById('zona-suggestions');
+    var zonaHint = document.getElementById('zona-hint');
+    if (zonaInput && sugList && zonaHint) {
+      function norm(s) {
+        return s.toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          .replace(/\./g, '')
+          .trim();
+      }
+
+      var activeIdx = -1;
+
+      function showSuggestions(val) {
+        var q = norm(val);
+        if (q.length < 2) { hideSuggestions(); return; }
+
+        var matches = allZonas.filter(function(z) {
+          return norm(z.name).indexOf(q) !== -1;
+        }).slice(0, 6);
+
+        if (matches.length === 0) {
+          sugList.style.display = 'none';
+          zonaHint.textContent = msgEmpresa;
+          zonaHint.className = 'zona-hint zona-hint--warn';
+          zonaHint.style.display = '';
+          return;
+        }
+
+        zonaHint.style.display = 'none';
+        activeIdx = -1;
+        sugList.innerHTML = matches.map(function(z, i) {
+          return '<li role="option" data-idx="' + i + '" data-name="' + z.name + '">'
+            + '<span class="sug-check">✓</span>'
+            + '<span class="sug-name">' + z.name + '</span>'
+            + '</li>';
+        }).join('');
+        sugList.style.display = '';
+      }
+
+      function hideSuggestions() {
+        sugList.style.display = 'none';
+        activeIdx = -1;
+      }
+
+      function selectZona(name) {
+        zonaInput.value = name;
+        hideSuggestions();
+        zonaHint.style.display = 'none';
+      }
+
+      zonaInput.addEventListener('input', function () {
+        showSuggestions(zonaInput.value);
+      });
+
+      zonaInput.addEventListener('focus', function () {
+        if (zonaInput.value.length >= 2) showSuggestions(zonaInput.value);
+      });
+
+      // Clic en sugerencia
+      sugList.addEventListener('mousedown', function (e) {
+        var li = e.target.closest('li');
+        if (li) selectZona(li.dataset.name);
+      });
+
+      // Navegación con teclado
+      zonaInput.addEventListener('keydown', function (e) {
+        var items = sugList.querySelectorAll('li');
+        if (!items.length || sugList.style.display === 'none') return;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          activeIdx = Math.min(activeIdx + 1, items.length - 1);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          activeIdx = Math.max(activeIdx - 1, 0);
+        } else if (e.key === 'Enter' && activeIdx >= 0) {
+          e.preventDefault();
+          selectZona(items[activeIdx].dataset.name);
+          return;
+        } else if (e.key === 'Escape') {
+          hideSuggestions();
+          return;
+        } else {
+          return;
+        }
+        items.forEach(function(li, i) {
+          li.classList.toggle('is-active', i === activeIdx);
+        });
+      });
+
+      // Cerrar al perder foco
+      zonaInput.addEventListener('blur', function () {
+        setTimeout(hideSuggestions, 150);
+      });
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
       var nombre   = form.nombre.value.trim();
       var servicio = form.servicio.value;
+      var zona     = form.zona.value.trim();
+      var telefono = form.telefono.value.trim();
       var mensaje  = form.mensaje.value.trim();
 
       var texto = 'Hola, vengo de la web.';
       if (nombre)   texto += ' Soy ' + nombre + '.';
+      if (zona)     texto += ' Zona: ' + zona + '.';
+      if (telefono) texto += ' Tel: ' + telefono + '.';
       if (servicio) texto += ' Necesito: ' + servicio + '.';
       if (mensaje)  texto += ' ' + mensaje;
+      texto += ' 📋';
 
-      var url = 'https://wa.me/5491166082608?text=' + encodeURIComponent(texto);
+      // Guardar lead en Google Sheets (fire-and-forget)
+      var SHEETS_URL = window.__SHEETS_WEBHOOK__;
+      if (SHEETS_URL) {
+        try {
+          fetch(SHEETS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              nombre: nombre,
+              telefono: telefono,
+              zona: zona,
+              servicio: servicio,
+              mensaje: mensaje,
+              origen: 'web-contacto',
+              fecha: new Date().toISOString(),
+            }),
+          });
+        } catch (_) { /* no bloquear si falla */ }
+      }
+
+      // Evento de conversión
+      if (typeof window.trackWaClick === 'function') {
+        window.trackWaClick('contacto');
+      }
+
+      var url = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(texto);
       window.open(url, '_blank', 'noopener,noreferrer');
     });
   });
@@ -274,5 +424,68 @@ const WA = "https://wa.me/5491166082608";
     font-size: 11px;
     color: rgba(255,255,255,0.2);
     text-align: center;
+  }
+
+  /* Autocompletado de zona */
+  .zona-row { position: relative; }
+  .zona-wrap { position: relative; }
+  .zona-suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #2a2a2a;
+    border: 1px solid rgba(255,123,3,0.3);
+    border-radius: 12px;
+    padding: 6px;
+    list-style: none;
+    max-height: 220px;
+    overflow-y: auto;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .zona-suggestions :global(li) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  .zona-suggestions :global(li:hover),
+  .zona-suggestions :global(li.is-active) {
+    background: rgba(255,123,3,0.12);
+  }
+  .zona-suggestions :global(.sug-check) {
+    font-size: 12px;
+    color: #22c55e;
+    font-weight: 800;
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+  }
+  .zona-suggestions :global(.sug-name) {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .zona-suggestions :global(li:hover .sug-name),
+  .zona-suggestions :global(li.is-active .sug-name) {
+    color: var(--brand);
+  }
+
+  /* Hint para zonas no listadas */
+  .zona-hint {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+  .zona-hint--warn {
+    background: rgba(255, 183, 0, 0.1);
+    border: 1px solid rgba(255, 183, 0, 0.25);
+    color: #FFB700;
   }
 </style>

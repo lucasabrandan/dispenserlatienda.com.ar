@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { SITE, PHONE, EMAIL, SOCIAL, COBERTURA, REVIEWS, ANALYTICS, HORARIO, SHEETS_WEBHOOK } from "../config/site";
 import "../styles/global.css";
 
 interface Props {
@@ -9,9 +10,33 @@ interface Props {
 }
 
 const {
-  title = "Servicio Técnico Dispensers CABA y AMBA | Dispenser La Tienda",
-  description = "Reparación, mantenimiento y limpieza de dispensers de agua a domicilio en CABA y AMBA. Respuesta inmediata por WhatsApp. Visita en 24-48 horas. 011 6608-2608.",
+  title = `Servicio Técnico Dispensers ${COBERTURA.short} | ${SITE.name}`,
+  description = `Reparación, mantenimiento y limpieza de dispensers de agua a domicilio en ${COBERTURA.short}. Respuesta inmediata por WhatsApp. Visita en 24-48 horas. ${PHONE.display}.`,
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, SITE.url).href;
+
+// Schema.org — LocalBusiness con AggregateRating
+const schemaLocalBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": SITE.name,
+  "description": SITE.description,
+  "slogan": SITE.slogan,
+  "telephone": PHONE.international,
+  "email": EMAIL,
+  "url": SITE.url,
+  "areaServed": ["Ciudad Autónoma de Buenos Aires", "Zona Sur del Gran Buenos Aires"],
+  "openingHours": HORARIO.schema,
+  "sameAs": [SOCIAL.tiktok, SOCIAL.instagram],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": REVIEWS.rating,
+    "reviewCount": REVIEWS.count,
+    "bestRating": 5,
+    "worstRating": 1,
+  },
+};
 ---
 
 <!doctype html>
@@ -28,23 +53,28 @@ const {
     <link rel="icon" type="image/png" href="/logo.png" />
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://dispenserlatienda.com.ar" />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Open Graph -->
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url"         content="https://dispenserlatienda.com.ar" />
+    <meta property="og:url"         content={canonicalUrl} />
     <meta property="og:type"        content="website" />
     <meta property="og:locale"      content="es_AR" />
-    <meta property="og:image"       content="https://dispenserlatienda.com.ar/og-image.webp" />
-    <meta property="og:image:alt"   content="Dispenser de agua frío y calor — Dispenser La Tienda" />
-    <meta property="og:site_name"   content="Dispenser La Tienda" />
+    <meta property="og:image"       content={`${SITE.url}/og-image.png`} />
+    <meta property="og:image:alt"   content={`${SITE.name} — Servicio técnico de dispensers`} />
+    <meta property="og:site_name"   content={SITE.name} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:title"       content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image"       content="https://dispenserlatienda.com.ar/og-image.webp" />
+    <meta name="twitter:image"       content={`${SITE.url}/og-image.png`} />
+
+    <!-- Google Search Console verification (activar cuando se tenga el ID) -->
+    {ANALYTICS.searchConsoleId && (
+      <meta name="google-site-verification" content={ANALYTICS.searchConsoleId} />
+    )}
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,28 +84,66 @@ const {
       rel="stylesheet"
     />
 
+    <!-- Webhook Google Sheets (para formulario de contacto) -->
+    {SHEETS_WEBHOOK && (
+      <script is:inline define:vars={{ sheetsUrl: SHEETS_WEBHOOK }}>
+        window.__SHEETS_WEBHOOK__ = sheetsUrl;
+      </script>
+    )}
+
     <!-- Schema.org LocalBusiness -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Dispenser La Tienda",
-        "description": "Servicio técnico de dispensers de agua a domicilio en CABA y AMBA. Reparación, limpieza y mantenimiento con garantía incluida.",
-        "slogan": "Reparación y limpieza de dispensers a domicilio.",
-        "telephone": "+54-9-11-6608-2608",
-        "email": "info@dispenserlatienda.com.ar",
-        "url": "https://dispenserlatienda.com.ar",
-        "areaServed": ["Ciudad Autónoma de Buenos Aires", "Area Metropolitana de Buenos Aires"],
-        "openingHours": "Mo-Sa 09:00-18:00",
-        "sameAs": [
-          "https://www.tiktok.com/@dispenserlatienda",
-          "https://www.instagram.com/dispenserlatienda/"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(schemaLocalBusiness)} />
+
+    <!-- GA4 (inactivo hasta pegar Measurement ID) -->
+    {ANALYTICS.ga4Id && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.ga4Id}`} />
+        <script is:inline define:vars={{ ga4Id: ANALYTICS.ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+          });
+          gtag('config', ga4Id);
+        </script>
+      </>
+    )}
+
+    <!-- Meta Pixel (inactivo hasta pegar ID) -->
+    {ANALYTICS.metaPixelId && (
+      <script is:inline define:vars={{ pixelId: ANALYTICS.metaPixelId }}>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('consent', 'revoke');
+        fbq('init', pixelId);
+        fbq('track', 'PageView');
+      </script>
+    )}
   </head>
 
   <body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Consentimiento de cookies" style="display:none;">
+      <div class="cookie-inner">
+        <p class="cookie-text">
+          Usamos cookies para medir el rendimiento del sitio y mejorar tu experiencia.
+          Podés aceptar o rechazar las opcionales.
+        </p>
+        <div class="cookie-actions">
+          <button type="button" id="cookie-reject" class="cookie-btn cookie-btn--reject">Solo esenciales</button>
+          <button type="button" id="cookie-accept" class="cookie-btn cookie-btn--accept">Aceptar todas</button>
+        </div>
+      </div>
+    </div>
+
     <Header />
     <main>
       <slot />
@@ -93,6 +161,68 @@ const {
         <polyline points="18 15 12 9 6 15"/>
       </svg>
     </button>
+
+    <!-- Cookie consent logic -->
+    <script is:inline>
+      (function() {
+        var banner = document.getElementById('cookie-banner');
+        var stored = localStorage.getItem('cookie-consent');
+
+        if (!stored) {
+          banner.style.display = '';
+        }
+
+        function updateConsent(accepted) {
+          localStorage.setItem('cookie-consent', accepted ? 'all' : 'essential');
+          banner.style.display = 'none';
+
+          if (typeof gtag === 'function') {
+            gtag('consent', 'update', {
+              analytics_storage: accepted ? 'granted' : 'denied',
+              ad_storage: accepted ? 'granted' : 'denied',
+            });
+          }
+          if (typeof fbq === 'function') {
+            if (accepted) fbq('consent', 'grant');
+          }
+        }
+
+        document.getElementById('cookie-accept').addEventListener('click', function() { updateConsent(true); });
+        document.getElementById('cookie-reject').addEventListener('click', function() { updateConsent(false); });
+
+        // Restaurar consentimiento al cargar
+        if (stored === 'all') {
+          if (typeof gtag === 'function') {
+            gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+          }
+          if (typeof fbq === 'function') fbq('consent', 'grant');
+        }
+      })();
+    </script>
+
+    <!-- Tracking de clics a WhatsApp -->
+    <script is:inline>
+      window.trackWaClick = function(origin) {
+        // GA4 event
+        if (typeof gtag === 'function') {
+          gtag('event', 'wa_click', {
+            event_category: 'conversion',
+            event_label: origin,
+          });
+        }
+        // Meta Pixel event
+        if (typeof fbq === 'function') {
+          fbq('trackCustom', 'WhatsAppClick', { origin: origin });
+        }
+      };
+
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('[data-wa-event]');
+        if (link) {
+          window.trackWaClick(link.dataset.waEvent);
+        }
+      });
+    </script>
 
     <!-- Reveal animation observer -->
     <script>
@@ -130,6 +260,72 @@ const {
 </html>
 
 <style>
+  /* Cookie Banner */
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(17, 17, 17, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px 20px;
+  }
+  .cookie-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+  @media (min-width: 640px) {
+    .cookie-inner {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  .cookie-text {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  .cookie-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .cookie-btn {
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .cookie-btn--reject {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .cookie-btn--reject:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .cookie-btn--accept {
+    background: var(--brand);
+    color: #fff;
+  }
+  .cookie-btn--accept:hover {
+    background: var(--brand-d);
+    transform: translateY(-1px);
+  }
+
+  /* Scroll to top */
   .scroll-top-btn {
     position: fixed;
     bottom: 24px;

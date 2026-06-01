@@ -27,8 +27,8 @@ interface Props {
 
 const { producto: p } = Astro.props;
 
-const WA_NUMBER = "5491166082608";
-const WA = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+import { PHONE, COBERTURA } from "../config/site";
+const WA = (text: string) => `https://wa.me/${PHONE.raw}?text=${encodeURIComponent(text + " 🛒")}`;
 ---
 
 <article class="card-equipo reveal" data-product-id={p.id}>
@@ -138,7 +138,7 @@ const WA = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURICompone
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
               <circle cx="12" cy="10" r="3"/>
             </svg>
-            Instalación a domicilio disponible en <strong>CABA y AMBA primer cordón</strong>
+            Instalación a domicilio disponible en <strong>{COBERTURA.despacho}</strong>
           </p>
         </div>
       )}

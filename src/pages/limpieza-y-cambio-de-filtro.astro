@@ -1,0 +1,246 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { WA, SITE, COBERTURA, PHONE } from "../config/site";
+
+const title = `Limpieza y Cambio de Filtro de Dispenser | ${SITE.name}`;
+const description = `Limpieza profunda y cambio de filtro de dispenser a domicilio. Una vez al año es suficiente. Garantía de 90 días. ${COBERTURA.short}. ${PHONE.display}.`;
+
+const schemaService = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Limpieza y cambio de filtro de dispenser a domicilio",
+  "description": description,
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": SITE.name,
+    "telephone": PHONE.international,
+    "url": SITE.url,
+  },
+  "areaServed": ["Ciudad Autónoma de Buenos Aires", "Zona Sur del Gran Buenos Aires"],
+  "serviceType": "Mantenimiento de dispensers de agua",
+};
+
+const SERVICIOS_RELACIONADOS = [
+  { label: "Reparación de dispensers", href: "/reparacion-dispenser" },
+  { label: "Conversión de bidón a red", href: "/conversion-bidon-a-red" },
+  { label: "Alquiler corporativo", href: "/alquiler-corporativo" },
+];
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaService)} />
+
+  <!-- Hero -->
+  <section class="srv-hero">
+    <div class="srv-hero-inner">
+      <a href="/" class="srv-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver al inicio
+      </a>
+      <div class="srv-tag">
+        <span class="srv-tag-dot" aria-hidden="true"></span>
+        Servicio más solicitado
+      </div>
+      <span class="srv-eyebrow">Mantenimiento preventivo</span>
+      <h1>Limpieza y cambio<br>de <em>filtro</em></h1>
+      <p class="srv-lead">
+        Una vez al año es todo lo que necesita tu dispenser para mantener el agua limpia
+        y el equipo funcionando bien. Cambiamos el filtro de carbón activado y hacemos
+        la limpieza completa del circuito interno en una sola visita.
+      </p>
+      <div class="srv-cta-row">
+        <a href={WA.limpieza} class="btn-primary" target="_blank" rel="noopener noreferrer" data-wa-event="limpieza-page">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Consultar precio
+        </a>
+        <a href="/#contacto" class="btn-ghost">Completar formulario</a>
+      </div>
+      <p class="srv-note">Respuesta inmediata · Visita en 24 a 48 hs · {COBERTURA.short}</p>
+    </div>
+  </section>
+
+  <!-- Qué incluye -->
+  <section class="srv-section srv-section--light">
+    <div class="srv-inner">
+      <span class="srv-eyebrow">Qué incluye</span>
+      <h2>Todo en <em>una sola visita</em></h2>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Cambio de filtro</h3>
+          <p>Reemplazamos el filtro de carbón activado por uno nuevo. Es el que elimina el cloro, el gusto y el olor del agua.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Limpieza del circuito</h3>
+          <p>Desinfectamos todo el circuito interno por donde pasa el agua: tanques, mangueras, válvulas y griferías.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Revisión general</h3>
+          <p>Verificamos que enfríe y caliente correctamente, revisamos conexiones eléctricas y sellamos posibles pérdidas.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <h3>Prueba de funcionamiento</h3>
+          <p>Probamos el equipo completo antes de irnos. Si detectamos algún problema adicional, te lo informamos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Por qué es importante -->
+  <section class="srv-section srv-section--dark">
+    <div class="srv-inner">
+      <span class="srv-eyebrow">Por qué importa</span>
+      <h2>Qué pasa si <em>no hacés</em> el mantenimiento</h2>
+
+      <div class="problems-grid">
+        <div class="problem-card">
+          <h3>Agua con gusto u olor</h3>
+          <p>El filtro saturado deja pasar cloro, sedimentos y sabores extraños. La limpieza anual lo resuelve.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Bacterias y biofilm</h3>
+          <p>Sin desinfección, el circuito interno acumula microorganismos. Sobre todo en los tanques donde el agua se estanca.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Fallas prematuras</h3>
+          <p>La suciedad acumulada fuerza al compresor y la resistencia, acortando la vida útil del equipo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Empresas -->
+  <section class="srv-section srv-section--light">
+    <div class="srv-inner">
+      <span class="srv-eyebrow">Para empresas</span>
+      <h2>Descuento para <em>5 equipos</em> o más</h2>
+      <p class="srv-lead" style="color:#6b7280;">
+        Si tu empresa tiene varios dispensers, coordinamos todo en una sola jornada.
+        Precio especial por volumen. Emitimos factura por todos los trabajos.
+      </p>
+      <a href={WA.limpieza} class="btn-primary" target="_blank" rel="noopener noreferrer" data-wa-event="limpieza-page-empresas">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Consultar precio por volumen
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="srv-section srv-section--light" style="padding-top:0;">
+    <div class="srv-inner">
+      <span class="srv-eyebrow">Preguntas frecuentes</span>
+      <h2>Sobre la <em>limpieza</em></h2>
+
+      <div class="srv-faq">
+        <details class="srv-faq-item">
+          <summary>¿Cada cuánto hay que hacer la limpieza?</summary>
+          <p>Una vez al año es suficiente para mantener el agua limpia y el equipo en buen estado. No conviene esperar más porque el filtro se satura y pierde efectividad.</p>
+        </details>
+        <details class="srv-faq-item">
+          <summary>¿Cuánto dura la visita?</summary>
+          <p>Entre 30 y 45 minutos por equipo. Si tenés varios, los hacemos todos en la misma jornada.</p>
+        </details>
+        <details class="srv-faq-item">
+          <summary>¿El filtro lo traen ustedes?</summary>
+          <p>Sí. Llevamos el filtro de carbón activado incluido en el servicio. No tenés que comprar nada por separado.</p>
+        </details>
+        <details class="srv-faq-item">
+          <summary>¿Sirve para cualquier marca de dispenser?</summary>
+          <p>Sí. Hacemos limpieza y cambio de filtro en todas las marcas, tanto de bidón como de red.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="srv-section srv-section--cta">
+    <div class="srv-inner" style="text-align:center;">
+      <h2>¿Tu dispenser necesita <em>mantenimiento</em>?</h2>
+      <p class="srv-lead">Escribinos y coordinamos la visita en 24 a 48 horas.</p>
+      <a href={WA.limpieza} class="btn-primary" target="_blank" rel="noopener noreferrer" data-wa-event="limpieza-page-cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Consultar por WhatsApp
+      </a>
+
+      <div class="srv-related">
+        <p class="srv-related-label">Otros servicios</p>
+        <div class="srv-related-links">
+          {SERVICIOS_RELACIONADOS.map(s => (
+            <a href={s.href} class="srv-related-link">{s.label}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .srv-hero { background: #0f0f0f; padding: 48px 20px 60px; position: relative; overflow: hidden; }
+  .srv-hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 450px; background: radial-gradient(ellipse, rgba(255,123,3,0.12) 0%, transparent 65%); pointer-events: none; }
+  .srv-hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+  .srv-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 24px; transition: color 0.2s; }
+  .srv-back:hover { color: var(--brand); }
+
+  .srv-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); background: rgba(255,123,3,0.12); border: 1px solid rgba(255,123,3,0.2); padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; }
+  .srv-tag-dot { width: 6px; height: 6px; background: var(--brand); border-radius: 50%; }
+
+  .srv-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+  h1 { font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.03em; color: #fff; margin-bottom: 20px; }
+  h1 em { font-style: normal; color: var(--brand); }
+  .srv-lead { font-size: clamp(15px, 2.5vw, 17px); color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 56ch; margin-bottom: 28px; }
+  .srv-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; background: var(--brand); color: #fff; font-weight: 700; font-size: 15px; border-radius: 13px; box-shadow: 0 8px 24px rgba(255,123,3,0.3); transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--brand-d); transform: translateY(-1px); }
+  .btn-ghost { display: inline-flex; align-items: center; padding: 13px 26px; background: transparent; border: 1.5px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.8); font-weight: 700; font-size: 15px; border-radius: 13px; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+  .srv-note { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  .srv-section { padding: 72px 24px; }
+  .srv-section--light { background: #F8F8F8; }
+  .srv-section--dark { background: #111; }
+  .srv-section--cta { background: #0f0f0f; padding: 80px 24px; }
+  .srv-inner { max-width: 860px; margin: 0 auto; }
+  .srv-section h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 36px; }
+  .srv-section--light h2 { color: #111; }
+  .srv-section--dark h2, .srv-section--cta h2 { color: #fff; }
+  .srv-section h2 em { font-style: normal; color: var(--brand); }
+  .srv-section--cta .srv-lead { margin: 0 auto 28px; }
+
+  .steps { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 640px) { .steps { grid-template-columns: 1fr 1fr; } }
+  .step { background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 28px 24px; }
+  .step-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9px; background: var(--brand-lt); color: var(--brand); font-size: 14px; font-weight: 800; margin-bottom: 14px; }
+  .step h3 { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: #6b7280; line-height: 1.65; }
+
+  .problems-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 640px) { .problems-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .problem-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px 20px; }
+  .problem-card h3 { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .problem-card p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  .srv-faq { border: 1px solid #E5E7EB; border-radius: 18px; overflow: hidden; max-width: 680px; }
+  .srv-faq-item { border-bottom: 1px solid #E5E7EB; }
+  .srv-faq-item:last-child { border-bottom: none; }
+  .srv-faq-item summary { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; font-size: 14px; font-weight: 600; color: #111; cursor: pointer; list-style: none; transition: background 0.15s; }
+  .srv-faq-item summary::-webkit-details-marker { display: none; }
+  .srv-faq-item summary:hover { background: #FAFAFA; }
+  .srv-faq-item[open] summary { color: var(--brand); background: #FAFAFA; }
+  .srv-faq-item p { padding: 0 22px 18px; font-size: 13px; color: #6b7280; line-height: 1.75; }
+
+  .srv-related { margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .srv-related-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+  .srv-related-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .srv-related-link { padding: 10px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); transition: border-color 0.2s, color 0.2s; }
+  .srv-related-link:hover { border-color: var(--brand); color: var(--brand); }
+</style>

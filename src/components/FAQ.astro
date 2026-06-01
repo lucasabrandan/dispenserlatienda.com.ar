@@ -1,5 +1,5 @@
 ---
-const WA = "https://wa.me/5491166082608?text=";
+import { WA, COBERTURA } from "../config/site";
 
 const grupos = [
   {
@@ -52,7 +52,11 @@ const grupos = [
     items: [
       {
         q: "¿En qué zonas trabajan?",
-        a: "Cubrimos toda CABA y el Gran Buenos Aires. Si tenés dudas sobre tu zona, escribinos por WhatsApp y te confirmamos en el momento.",
+        html: `<p><strong>Cobertura plena:</strong> toda CABA y zona sur del GBA — Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley, Bernal, Don Bosco y alrededores.</p>
+<p><strong>También llegamos</strong> a zonas céntricas de Quilmes, Solano, Monte Grande, Ezeiza, Adrogué, Burzaco, Longchamps, Turdera, Llavallol y Luis Guillón. Pasanos tu dirección y te confirmamos.</p>
+<p><strong>Empresas (3+ equipos):</strong> para trabajos corporativos también vamos a zonas céntricas del oeste (Morón, Ramos Mejía, San Justo) y norte (San Martín, Vicente López, San Isidro).</p>`,
+        cta: "Consultar por mi zona",
+        msg: "Hola, quiero saber si llegan a mi zona.",
       },
       {
         q: "¿Cuánto tarda en llegar el técnico?",
@@ -77,7 +81,24 @@ const grupos = [
     ],
   },
 ];
+
+// Schema.org FAQPage — todas las preguntas en un solo bloque
+const allFaqs = grupos.flatMap(g => g.items);
+const schemaFAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": allFaqs.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a,
+    },
+  })),
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} />
 
 <section class="faq" id="faq">
   <div class="inner">
@@ -123,13 +144,14 @@ const grupos = [
                 </span>
               </summary>
               <div class="faq-body">
-                <p>{item.a}</p>
+                {item.html ? <div class="faq-html" set:html={item.html} /> : <p>{item.a}</p>}
                 {item.cta && (
                   <a
-                    href={WA + encodeURIComponent(item.msg)}
+                    href={WA.base + encodeURIComponent(item.msg + " ❓")}
                     target="_blank"
                     rel="noopener noreferrer"
                     class="faq-btn"
+                    data-wa-event="faq"
                   >
                     <svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
                       <path d="M19.11 17.25c-.28-.14-1.64-.81-1.89-.9s-.44-.14-.62.14c-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.67-1.58-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.45-.46-.62-.46h-.53c-.18 0-.46.07-.7.34s-.92.9-.92 2.2.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.54 4.02.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.06-.12-.25-.2-.53-.34z"/>
@@ -385,6 +407,19 @@ const grupos = [
     font-size: 13px;
     color: #6b7280;
     line-height: 1.75;
+  }
+  .faq-html {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .faq-html p {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.75;
+  }
+  .faq-html strong {
+    color: #374151;
   }
 
   .faq-btn {
