@@ -72,6 +72,18 @@ export const ZONAS = {
   /** Cobertura plena, sin condiciones */
   nucleo: [
     "CABA",
+    // Barrios de CABA (todos núcleo)
+    "Agronomía", "Almagro", "Balvanera", "Barracas", "Belgrano",
+    "Boedo", "Caballito", "Chacarita", "Coghlan", "Colegiales",
+    "Constitución", "Flores", "Floresta", "La Boca", "La Paternal",
+    "Liniers", "Mataderos", "Monte Castro", "Montserrat", "Nueva Pompeya",
+    "Núñez", "Palermo", "Parque Avellaneda", "Parque Chacabuco", "Parque Chas",
+    "Parque Patricios", "Puerto Madero", "Recoleta", "Retiro", "Saavedra",
+    "San Cristóbal", "San Nicolás", "San Telmo", "Vélez Sársfield", "Versalles",
+    "Villa Crespo", "Villa del Parque", "Villa Devoto", "Villa General Mitre",
+    "Villa Lugano", "Villa Luro", "Villa Ortúzar", "Villa Pueyrredón",
+    "Villa Real", "Villa Riachuelo", "Villa Santa Rita", "Villa Soldati", "Villa Urquiza",
+    // Zona sur GBA
     "Avellaneda", "Sarandí", "Villa Domínico", "Wilde", "Crucecita",
     "Lanús", "Lanús Este", "Lanús Oeste", "Remedios de Escalada", "Monte Chingolo", "Valentín Alsina", "Gerli",
     "Banfield", "Lomas de Zamora", "Temperley",
@@ -84,12 +96,17 @@ export const ZONAS = {
     "Quilmes", "San Francisco Solano",
     "Adrogué", "Burzaco", "Longchamps",
   ],
+  /** Zona extendida — solo empresas con 3+ equipos */
+  extendida: [
+    "Morón", "Ramos Mejía", "San Justo", "Hurlingham", "Ituzaingó", "Caseros",
+    "San Martín", "Vicente López", "San Isidro",
+  ],
 } as const;
 
 // ---- Reputación ----
 export const REVIEWS = {
   rating: 4.9,
-  count: 40,
+  count: 42,
   platform: "Google",
 } as const;
 

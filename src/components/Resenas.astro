@@ -1,8 +1,8 @@
 ---
 const featured = {
-  tag:    "5 años como cliente",
-  text:   "\"Como hace 5 años seguimos eligiendo LA TIENDA. Trabajo prolijo, buena atención y costos accesibles.\"",
-  author: "Mir viru",
+  tag:    "Mantenimiento mensual",
+  text:   "\"Realizamos el mantenimiento mensual con Dispenser La Tienda. Siempre puntuales, prolijos y con muy buena atención. Muy recomendable.\"",
+  author: "Luciano Garcia",
 };
 
 const secundarias = [
@@ -19,6 +19,7 @@ const secundarias = [
     author: "Docencia Udaondo",
   },
 ];
+import { REVIEWS } from "../config/site";
 ---
 
 <section class="resenas" id="resenas">
@@ -26,11 +27,11 @@ const secundarias = [
 
     <div class="header">
       <span class="eyebrow">Reseñas</span>
-      <div class="google-badge" aria-label="4.9 de 5 estrellas · +40 reseñas en Google Business">
-        <span class="g-score">4.9</span>
+      <div class="google-badge" aria-label={`${REVIEWS.rating} de 5 estrellas · +${REVIEWS.count} reseñas en Google Business`}>
+        <span class="g-score">{REVIEWS.rating}</span>
         <div class="g-info">
           <span class="g-stars" aria-hidden="true">★★★★★</span>
-          <span class="g-count">+40 reseñas en Google Business</span>
+          <span class="g-count">+{REVIEWS.count} reseñas en Google Business</span>
         </div>
       </div>
       <h2>Lo que dicen<br>nuestros clientes</h2>

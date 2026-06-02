@@ -100,8 +100,10 @@ import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
   allZonas: [
     ...ZONAS.nucleo.map(z => ({ name: z, type: 'nucleo' })),
     ...ZONAS.centrica.map(z => ({ name: z, type: 'centrica' })),
+    ...ZONAS.extendida.map(z => ({ name: z, type: 'extendida' })),
   ],
   msgEmpresa: COBERTURA.empresaRemota,
+  msgExtendida: 'Llegamos a tu zona para trabajos de empresa (3 o más equipos). Consultanos.',
 }}>
   document.addEventListener('DOMContentLoaded', function () {
     var form = document.getElementById('contact-form');
@@ -140,9 +142,14 @@ import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
         zonaHint.style.display = 'none';
         activeIdx = -1;
         sugList.innerHTML = matches.map(function(z, i) {
-          return '<li role="option" data-idx="' + i + '" data-name="' + z.name + '">'
+          var badge = '';
+          if (z.type === 'extendida') {
+            badge = '<span class="sug-badge sug-badge--ext">Empresas 3+</span>';
+          }
+          return '<li role="option" data-idx="' + i + '" data-name="' + z.name + '" data-type="' + z.type + '">'
             + '<span class="sug-check">✓</span>'
             + '<span class="sug-name">' + z.name + '</span>'
+            + badge
             + '</li>';
         }).join('');
         sugList.style.display = '';
@@ -153,10 +160,16 @@ import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
         activeIdx = -1;
       }
 
-      function selectZona(name) {
+      function selectZona(name, type) {
         zonaInput.value = name;
         hideSuggestions();
-        zonaHint.style.display = 'none';
+        if (type === 'extendida') {
+          zonaHint.textContent = msgExtendida;
+          zonaHint.className = 'zona-hint zona-hint--info';
+          zonaHint.style.display = '';
+        } else {
+          zonaHint.style.display = 'none';
+        }
       }
 
       zonaInput.addEventListener('input', function () {
@@ -170,7 +183,7 @@ import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
       // Clic en sugerencia
       sugList.addEventListener('mousedown', function (e) {
         var li = e.target.closest('li');
-        if (li) selectZona(li.dataset.name);
+        if (li) selectZona(li.dataset.name, li.dataset.type);
       });
 
       // Navegación con teclado
@@ -186,7 +199,7 @@ import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
           activeIdx = Math.max(activeIdx - 1, 0);
         } else if (e.key === 'Enter' && activeIdx >= 0) {
           e.preventDefault();
-          selectZona(items[activeIdx].dataset.name);
+          selectZona(items[activeIdx].dataset.name, items[activeIdx].dataset.type);
           return;
         } else if (e.key === 'Escape') {
           hideSuggestions();
@@ -487,5 +500,24 @@ import { WA, PHONE, EMAIL, COBERTURA, HORARIO, ZONAS } from "../config/site";
     background: rgba(255, 183, 0, 0.1);
     border: 1px solid rgba(255, 183, 0, 0.25);
     color: #FFB700;
+  }
+  .zona-hint--info {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #60A5FA;
+  }
+
+  /* Badge extendida en sugerencias */
+  .zona-suggestions :global(.sug-badge) {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .zona-suggestions :global(.sug-badge--ext) {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60A5FA;
   }
 </style>

@@ -85,6 +85,13 @@ const SERVICIOS_RELACIONADOS = [
           <p>Reparación en el momento, probamos el equipo y te damos 3 meses de garantía sobre el trabajo.</p>
         </div>
       </div>
+
+      <a href={WA.reparacion} class="btn-primary srv-block-cta" target="_blank" rel="noopener noreferrer" data-wa-event="reparacion-page-pasos">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Contanos que le pasa a tu dispenser
+      </a>
     </div>
   </section>
 
@@ -97,29 +104,42 @@ const SERVICIOS_RELACIONADOS = [
       <div class="problems-grid">
         <div class="problem-card">
           <h3>No enfría o no calienta</h3>
-          <p>Falla de compresor, resistencia quemada, termostato desregulado o falta de ventilación. Diagnosticamos y reparamos en la visita.</p>
+          <p>Falla de compresor, resistencia quemada, termostato desregulado o falta de ventilación. Lo diagnosticamos antes de tocar nada y te explicamos qué se puede hacer.</p>
         </div>
         <div class="problem-card">
           <h3>Pierde agua</h3>
-          <p>Uniones sueltas, flotante trabado, válvulas dañadas o fisura interna. Identificamos el origen y lo sellamos o reemplazamos.</p>
+          <p>Uniones sueltas, flotante trabado, válvulas dañadas o fisura interna. Lo diagnosticamos antes de tocar nada, identificamos el origen y lo sellamos o reemplazamos.</p>
         </div>
-        <div class="problem-card">
+        <div class="problem-card problem-card--urgent">
           <h3>Da corriente o descarga</h3>
-          <p>Problema eléctrico que requiere intervención urgente. Revisamos aislación, cableado y puesta a tierra del equipo.</p>
+          <p>Problema eléctrico que requiere intervención urgente. Lo diagnosticamos antes de tocar nada: revisamos aislación, cableado y puesta a tierra.</p>
+          <a href={WA.reparacion} class="problem-cta" target="_blank" rel="noopener noreferrer" data-wa-event="reparacion-page-corriente">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            Escribinos ahora
+          </a>
         </div>
         <div class="problem-card">
           <h3>Olor a quemado</h3>
-          <p>Puede ser sobrecalentamiento del compresor o falla eléctrica. Hacemos diagnóstico completo antes de cualquier intervención.</p>
+          <p>Puede ser sobrecalentamiento del compresor o falla eléctrica. Lo diagnosticamos antes de tocar nada para determinar si conviene reparar.</p>
         </div>
         <div class="problem-card">
           <h3>Agua con gusto u olor</h3>
-          <p>Filtro saturado o circuito interno contaminado. Se resuelve con limpieza profunda y cambio de filtro.</p>
+          <p>Filtro saturado o circuito interno contaminado. Lo diagnosticamos y se resuelve con limpieza profunda y cambio de filtro.</p>
         </div>
         <div class="problem-card">
           <h3>Funciona a veces sí, a veces no</h3>
-          <p>Falla intermitente en el termostato, conexión floja o componente en deterioro. Necesita revisión técnica para identificar la causa.</p>
+          <p>Falla intermitente en el termostato, conexión floja o componente en deterioro. Lo diagnosticamos antes de tocar nada para identificar la causa exacta.</p>
         </div>
       </div>
+
+      <a href={WA.reparacion} class="btn-primary srv-block-cta" target="_blank" rel="noopener noreferrer" data-wa-event="reparacion-page-problemas">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Contanos que le pasa a tu dispenser
+      </a>
     </div>
   </section>
 
@@ -163,7 +183,7 @@ const SERVICIOS_RELACIONADOS = [
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
-        Consultar por WhatsApp
+        Contanos que le pasa a tu dispenser
       </a>
 
       <div class="srv-related">
@@ -296,6 +316,7 @@ const SERVICIOS_RELACIONADOS = [
   .srv-section h2 em { font-style: normal; color: var(--brand); }
 
   .srv-section--cta .srv-lead { margin: 0 auto 28px; }
+  .srv-block-cta { margin-top: 28px; }
 
   /* ===== Pasos ===== */
   .steps {
@@ -366,6 +387,21 @@ const SERVICIOS_RELACIONADOS = [
     color: rgba(255,255,255,0.45);
     line-height: 1.65;
   }
+  .problem-card--urgent { border-color: rgba(255,123,3,0.3); }
+  .problem-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 9px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .problem-cta:hover { background: var(--brand-d); transform: translateY(-1px); }
 
   /* ===== FAQ ===== */
   .srv-faq {
