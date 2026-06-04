@@ -52,9 +52,9 @@ const grupos = [
     items: [
       {
         q: "¿En qué zonas trabajan?",
-        html: `<p><strong>Cobertura plena:</strong> toda CABA y zona sur del GBA — Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley, Bernal, Don Bosco y alrededores.</p>
-<p><strong>También llegamos</strong> a zonas céntricas de Quilmes, Solano, Monte Grande, Ezeiza, Adrogué, Burzaco, Longchamps, Turdera, Llavallol y Luis Guillón. Pasanos tu dirección y te confirmamos.</p>
-<p><strong>Empresas (3+ equipos):</strong> para trabajos corporativos también vamos a zonas céntricas del oeste (Morón, Ramos Mejía, San Justo) y norte (San Martín, Vicente López, San Isidro).</p>`,
+        html: `<p><strong>Cobertura principal:</strong> toda Capital Federal (CABA), todos los barrios.</p>
+<p><strong>También llegamos</strong> al Gran Buenos Aires: Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley, Bernal y más. Pasanos tu dirección y te confirmamos.</p>
+<p><strong>Empresas con varios equipos:</strong> ampliamos la cobertura a todo el GBA. Consultanos por tu zona.</p>`,
         cta: "Consultar por mi zona",
         msg: "Hola, quiero saber si llegan a mi zona.",
       },
@@ -92,7 +92,7 @@ const schemaFAQ = {
     "name": item.q,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": item.a,
+      "text": item.a ?? item.html?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(),
     },
   })),
 };

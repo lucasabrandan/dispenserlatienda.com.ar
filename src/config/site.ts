@@ -8,7 +8,7 @@ export const SITE = {
   slogan: "Reparación y limpieza de dispensers a domicilio.",
   since: 2018,
   description:
-    "Servicio técnico de dispensers de agua a domicilio en CABA y zona sur del Gran Buenos Aires. Reparación, limpieza y mantenimiento con garantía incluida.",
+    "Servicio técnico de dispensers de agua a domicilio en Capital Federal y Gran Buenos Aires. Reparación, limpieza y mantenimiento con garantía incluida.",
 } as const;
 
 // ---- Contacto ----
@@ -53,16 +53,16 @@ export const SOCIAL = {
 
 // ---- Cobertura (texto oficial unificado) ----
 export const COBERTURA = {
-  /** Texto corto para badges, eyebrows, footers — enfocado en el fuerte */
-  short: "CABA y zona sur del GBA",
+  /** Texto corto para badges, eyebrows, footers — foco en Capital */
+  short: "Capital Federal y GBA",
   /** Para el contexto de equipos/despacho */
-  despacho: "CABA y zona sur del Gran Buenos Aires",
+  despacho: "Capital Federal y Gran Buenos Aires",
   /** Respuesta FAQ — incluye los tres niveles */
-  faq: "Cubrimos toda CABA y zona sur del Gran Buenos Aires (Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley, Bernal, entre otras). En zonas céntricas de Quilmes, Solano, Monte Grande, Ezeiza, Adrogué, Burzaco y Longchamps también llegamos — pasanos tu dirección y te confirmamos. Para empresas con 3 o más equipos, también trabajamos en zonas céntricas del oeste (Morón, Ramos Mejía, San Justo) y norte (San Martín, Vicente López, San Isidro). Consultanos.",
+  faq: "Cubrimos toda Capital Federal y Gran Buenos Aires. También llegamos a Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley, Bernal y alrededores. Pasanos tu dirección y te confirmamos cobertura. Para empresas con varios equipos, ampliamos la zona de servicio — consultanos.",
   /** Badge amarillo para cualquier zona fuera de núcleo/céntrica */
-  empresaRemota: "En tu zona vamos para trabajos de empresa (varios equipos). Escribinos y lo evaluamos.",
+  empresaRemota: "Consultanos por cobertura en tu zona. Para empresas con varios equipos, ampliamos el área de servicio.",
   /** Mención corporativa — para secciones de empresa */
-  coberturaEmpresa: "Para empresas con 3 o más equipos, la cobertura se extiende a zonas céntricas del oeste (Morón, Ramos Mejía, San Justo, Hurlingham, Ituzaingó, Caseros) y norte (San Martín, Vicente López, San Isidro).",
+  coberturaEmpresa: "Para empresas con múltiples equipos, la cobertura se amplía a todo el Gran Buenos Aires. Consultanos por tu zona.",
 } as const;
 
 // ---- Zonas estructuradas (para lógica del formulario) ----

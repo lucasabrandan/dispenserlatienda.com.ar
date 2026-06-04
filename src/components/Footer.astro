@@ -2,10 +2,10 @@
 import { SITE, PHONE, EMAIL, WA, SOCIAL, COBERTURA } from "../config/site";
 
 const SERVICIOS = [
-  "Mantenimiento",
-  "Reparación",
-  "Limpieza y desinfección",
-  "Conversión a red",
+  { label: "Reparación", href: "/reparacion-dispenser" },
+  { label: "Limpieza y cambio de filtro", href: "/limpieza-y-cambio-de-filtro" },
+  { label: "Conversión a red", href: "/conversion-bidon-a-red" },
+  { label: "Alquiler corporativo", href: "/alquiler-corporativo" },
 ];
 
 const REDES = [
@@ -24,19 +24,19 @@ const year = new Date().getFullYear();
     <!-- Columna marca -->
     <div class="footer-brand">
       <a href="/" aria-label="Inicio">
-        <img src="/logo.png" alt="Logo Dispenser La Tienda" width="36" height="36" />
+        <img src="/logo.webp" alt="Logo Dispenser La Tienda" width="36" height="36" />
       </a>
       <p>Servicio técnico de dispensers a domicilio en {COBERTURA.short}. Desde {SITE.since}.</p>
       <div class="footer-contact">
-        <span>{PHONE.display}</span>
-        <span>{EMAIL}</span>
+        <a href={`tel:${PHONE.raw}`}>{PHONE.display}</a>
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       </div>
     </div>
 
     <!-- Servicios -->
     <div class="footer-col">
       <h4>Servicios</h4>
-      {SERVICIOS.map(s => <a href="#servicios">{s}</a>)}
+      {SERVICIOS.map(s => <a href={s.href}>{s.label}</a>)}
     </div>
 
     <!-- Redes -->
