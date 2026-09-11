@@ -8,7 +8,7 @@ export const SITE = {
   slogan: "Reparación y limpieza de dispensers a domicilio.",
   since: 2018,
   description:
-    "Servicio técnico de dispensers de agua a domicilio en Capital Federal y Gran Buenos Aires. Reparación, limpieza y mantenimiento con garantía incluida.",
+    "Servicio técnico de dispensers de agua a domicilio en Capital Federal. Reparación, limpieza y mantenimiento con garantía incluida.",
 } as const;
 
 // ---- Contacto ----
@@ -54,15 +54,15 @@ export const SOCIAL = {
 // ---- Cobertura (texto oficial unificado) ----
 export const COBERTURA = {
   /** Texto corto para badges, eyebrows, footers — foco en Capital */
-  short: "Capital Federal y GBA",
+  short: "Capital Federal",
   /** Para el contexto de equipos/despacho */
-  despacho: "Capital Federal y Gran Buenos Aires",
+  despacho: "Capital Federal",
   /** Respuesta FAQ — incluye los tres niveles */
-  faq: "Cubrimos toda Capital Federal y Gran Buenos Aires. También llegamos a Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley, Bernal y alrededores. Pasanos tu dirección y te confirmamos cobertura. Para empresas con varios equipos, ampliamos la zona de servicio — consultanos.",
+  faq: "Trabajamos en toda Capital Federal, todos los barrios. También llegamos a la zona sur del GBA: Avellaneda, Lanús, Lomas de Zamora, Banfield, Temperley y alrededores. ¿Tu empresa está en otra zona? Escribinos y lo evaluamos.",
   /** Badge amarillo para cualquier zona fuera de núcleo/céntrica */
   empresaRemota: "Consultanos por cobertura en tu zona. Para empresas con varios equipos, ampliamos el área de servicio.",
   /** Mención corporativa — para secciones de empresa */
-  coberturaEmpresa: "Para empresas con múltiples equipos, la cobertura se amplía a todo el Gran Buenos Aires. Consultanos por tu zona.",
+  coberturaEmpresa: "Para empresas con múltiples equipos, ampliamos la cobertura. Consultanos por tu zona.",
 } as const;
 
 // ---- Zonas estructuradas (para lógica del formulario) ----
@@ -106,14 +106,14 @@ export const ZONAS = {
 // ---- Reputación ----
 export const REVIEWS = {
   rating: 4.9,
-  count: 42,
+  count: 49,
   platform: "Google",
 } as const;
 
 // ---- Analytics (preparados, inactivos hasta pegar IDs) ----
 export const ANALYTICS = {
   /** Google Analytics 4 Measurement ID — dejar vacío hasta crear la propiedad */
-  ga4Id: "",
+  ga4Id: "G-3BN4CW2RC7",
   /** Meta Pixel ID — dejar vacío hasta crear la cuenta */
   metaPixelId: "",
   /** Google Search Console verification tag — dejar vacío hasta verificar */
