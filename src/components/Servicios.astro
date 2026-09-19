@@ -22,7 +22,6 @@ import { WA, COBERTURA } from "../config/site";
       <!-- Panel izquierdo — Limpieza (destacado) -->
       <div class="panel-dark">
         <div class="panel-tag" aria-label="Servicio más solicitado">
-          <span class="tag-dot" aria-hidden="true"></span>
           Más solicitado
         </div>
 
@@ -111,12 +110,13 @@ import { WA, COBERTURA } from "../config/site";
         <h3 class="panel-title light-title">Conversión<br>de bidón a red</h3>
 
         <p class="panel-desc light-desc">
-          ¿Tu equipo es de bidón pero no conseguís repuestos? Lo adaptamos para que se conecte directo a la red de agua. Incluye kit con filtro flotante y tapa ciega más la instalación a domicilio.
+          ¿Tu equipo es de bidón pero no conseguís repuestos? Lo adaptamos para que se conecte directo a la red de agua. Kit completo más instalación a domicilio.
         </p>
 
         <ul class="panel-list light-list" role="list">
           <li>Adaptación de equipos sin repuestos disponibles</li>
-          <li>Kit incluido: filtro flotante + tapa ciega</li>
+          <li>Filtro de carbón activado y sedimentos (purifica el agua de red)</li>
+          <li>Flotante (regula el ingreso de agua al tanque) + tapa ciega</li>
           <li>Instalación a domicilio incluida</li>
           <li>Solo en {COBERTURA.despacho}</li>
         </ul>
@@ -389,12 +389,6 @@ import { WA, COBERTURA } from "../config/site";
     border-radius: 999px;
     align-self: flex-start;
   }
-  .tag-dot {
-    width: 6px; height: 6px;
-    background: var(--brand);
-    border-radius: 50%;
-  }
-
   .dark-icon {
     background: rgba(255,123,3,0.12);
     color: var(--brand);
